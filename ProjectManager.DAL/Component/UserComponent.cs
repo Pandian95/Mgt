@@ -41,9 +41,14 @@ namespace ProjectManager.DAL.Component
             {
                 using (ProjectManagerEntities context = new ProjectManagerEntities())
                 {
-                    User usrDelete = new User { User_ID = iUserID };
-                    context.Entry(usrDelete).State = EntityState.Deleted;
-                    context.SaveChanges();
+                    User user = GetUsersByID(iUserID);
+                    if(user != null)
+                    {
+                        User usrDelete = new User { User_ID = iUserID };
+                        context.Entry(usrDelete).State = EntityState.Deleted;
+                        context.SaveChanges();
+                    }
+                    
                 }
             }
             catch (Exception ex)

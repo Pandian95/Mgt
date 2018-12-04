@@ -12,7 +12,6 @@ namespace ProjectManager.Services.Controllers
     [RoutePrefix("api/users")]
     public class UserController : ApiController
     {
-        [Route("addusers")]
         [HttpPost]
         public HttpResponseMessage AddUserDetails([FromBody]User objUser)
         {
@@ -23,19 +22,21 @@ namespace ProjectManager.Services.Controllers
             return response;
 
         }
-        [Route("deleteuser/{userID:int}")]
+
         [HttpDelete]
-        public HttpResponseMessage DeleteUserDetails(int userID)
+        public HttpResponseMessage Delete(int userID)
         {
-            UserComponent objuser = new UserComponent();
-            objuser.DeleteUser(userID);
-
             var response = new HttpResponseMessage();
-            response.Headers.Add("Message", "Succsessfuly Deleted!!!");
-            return response;
 
+            if (userID <= 0)
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            UserComponent objuser = new UserComponent();
+            objuser.DeleteUser(userID);            
+            response.Headers.Add("Message", "Succsessfuly Updated!!!");
+            return response;
         }
-        [Route("updateuser")]
+
         [HttpPut]
         public HttpResponseMessage UpdateUserDetails([FromBody] User objUser)
         {
@@ -46,22 +47,30 @@ namespace ProjectManager.Services.Controllers
             return response;
 
         }
-        [Route("get")]
+        
         [HttpGet]
-        public IHttpActionResult Get()
+        public HttpResponseMessage Get()
         {
             UserComponent objuser = new UserComponent();
             List<User> lstUser = objuser.GetUsers();
-            return Json(lstUser);
+            if (lstUser == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, Json(lstUser));
         }
+
         [Route("getuser/{iUserID:int}")]
         [HttpGet]
-        public IHttpActionResult GetUser(int iUserID)
+        public HttpResponseMessage GetUser(int iUserID)
         {
             UserComponent objuser = new UserComponent();
             User objUser = objuser.GetUsersByID(iUserID);
-            return Json(objUser);
-
+            if (objUser == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, objUser);
         }
         
     }

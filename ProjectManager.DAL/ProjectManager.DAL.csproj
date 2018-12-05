@@ -53,6 +53,7 @@
     <Compile Include="Component\Project.cs" />
     <Compile Include="Component\Task.cs" />
     <Compile Include="Component\UserComponent.cs" />
+    <Compile Include="GenericRepository\GenericRepository.cs" />
     <Compile Include="Interface\IProject.cs" />
     <Compile Include="Interface\ITask.cs" />
     <Compile Include="Interface\IUser.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Task.cs">
       <DependentUpon>ProjectManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="User.cs">
       <DependentUpon>ProjectManagerModel.tt</DependentUpon>
     </Compile>
@@ -113,5 +115,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

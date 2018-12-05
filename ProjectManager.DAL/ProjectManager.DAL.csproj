@@ -50,13 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Component\Project.cs" />
-    <Compile Include="Component\Task.cs" />
-    <Compile Include="Component\UserComponent.cs" />
     <Compile Include="GenericRepository\GenericRepository.cs" />
-    <Compile Include="Interface\IProject.cs" />
-    <Compile Include="Interface\ITask.cs" />
-    <Compile Include="Interface\IUser.cs" />
     <Compile Include="ParentTask.cs">
       <DependentUpon>ProjectManagerModel.tt</DependentUpon>
     </Compile>

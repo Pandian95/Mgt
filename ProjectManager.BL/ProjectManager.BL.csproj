@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IProjectServices.cs" />
+    <Compile Include="IUserServices.cs" />
     <Compile Include="ProjectServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectManager.BusinessEntities\ProjectManager.BusinessEntities.csproj">

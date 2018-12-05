@@ -1,6 +1,5 @@
-﻿using ProjectManager.DAL;
-using ProjectManager.DAL.Component;
-using System;
+﻿using ProjectManager.BL;
+using ProjectManager.BusinessEntities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,69 +8,66 @@ using System.Web.Http;
 
 namespace ProjectManager.Services.Controllers
 {
-    [RoutePrefix("api/users")]
     public class UserController : ApiController
     {
-        [HttpPost]
-        public HttpResponseMessage AddUserDetails([FromBody]User objUser)
-        {
-            UserComponent objuser = new UserComponent();
-            objuser.AddUser(objUser);
-            var response = new HttpResponseMessage();
-            response.Headers.Add("Message", "Succsessfuly Inserted!!!");
-            return response;
+        private readonly IUserServices _userServices;
 
+        #region Public Constructor  
+
+        /// <summary>  
+        /// Public constructor to initialize user service instance  
+        /// </summary>  
+        public UserController()
+        {
+            _userServices = new UserServices();
         }
 
-        [HttpDelete]
-        public HttpResponseMessage Delete(int userID)
-        {
-            var response = new HttpResponseMessage();
+        #endregion
 
-            if (userID <= 0)
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-
-            UserComponent objuser = new UserComponent();
-            objuser.DeleteUser(userID);            
-            response.Headers.Add("Message", "Succsessfuly Updated!!!");
-            return response;
-        }
-
-        [HttpPut]
-        public HttpResponseMessage UpdateUserDetails([FromBody] User objUser)
-        {
-            UserComponent objuser = new UserComponent();
-            objuser.UpdateUser(objUser);
-            var response = new HttpResponseMessage();
-            response.Headers.Add("Message", "Succsessfuly Updated!!!");
-            return response;
-
-        }
-        
-        [HttpGet]
+        // GET: api/User
         public HttpResponseMessage Get()
         {
-            UserComponent objuser = new UserComponent();
-            List<User> lstUser = objuser.GetUsers();
-            if (lstUser == null)
+            var users = _userServices.GetAllUsers();
+            if (users != null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                var userEntities = users as List<UserEntity> ?? users.ToList();
+                if (userEntities.Any())
+                    return Request.CreateResponse(HttpStatusCode.OK, userEntities);
             }
-            return Request.CreateResponse(HttpStatusCode.OK, Json(lstUser));
+            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Users not found");
         }
 
-        [Route("getuser/{iUserID:int}")]
-        [HttpGet]
-        public HttpResponseMessage GetUser(int iUserID)
+        // GET: api/User/5
+        public HttpResponseMessage Get(int id)
         {
-            UserComponent objuser = new UserComponent();
-            User objUser = objuser.GetUsersByID(iUserID);
-            if (objUser == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            return Request.CreateResponse(HttpStatusCode.OK, objUser);
+            var user = _userServices.GetUserById(id);
+            if (user != null)
+                return Request.CreateResponse(HttpStatusCode.OK, user);
+            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No user found for this id");
         }
-        
+
+        // POST: api/User
+        public int Post([FromBody]UserEntity userEntity)
+        {
+            return _userServices.CreateUsers(userEntity);
+        }
+
+        // PUT: api/User/5
+        public bool Put(int id, [FromBody]UserEntity userEntity)
+        {
+            if (id > 0)
+            {
+                return _userServices.UpdateUser(id, userEntity);
+            }
+            return false;
+        }
+
+        // DELETE: api/User/5
+        public bool Delete(int id)
+        {
+            if (id > 0)
+                return _userServices.DeleteUser(id);
+            return false;
+        }
     }
 }

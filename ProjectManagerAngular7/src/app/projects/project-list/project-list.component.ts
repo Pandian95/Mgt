@@ -1,0 +1,34 @@
+import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { ProjectService } from '../../shared/project.service';
+import { Project } from 'src/app/shared/project.model';
+
+@Component({
+  selector: 'app-project-list',
+  templateUrl: './project-list.component.html',
+  styleUrls: ['./project-list.component.css']
+})
+export class ProjectListComponent implements OnInit {
+
+  constructor(private service: ProjectService,
+    private toastr: ToastrService) { }
+
+  ngOnInit() {
+    this.service.refreshList();
+  }
+
+  populateForm(pro: Project) {
+    this.service.formData = Object.assign({}, pro);
+  }
+
+  onDelete(id: number) {
+    if (confirm('Are you sure to delete this record?')) {
+      this.service.deleteProject(id).subscribe(res => {
+        this.service.refreshList();
+        this.toastr.warning('Deleted successfully', 'Project Manager');
+      });
+    }
+  }
+
+
+}

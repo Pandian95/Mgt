@@ -1,0 +1,9 @@
+<table class="table table-hover">
+  <tr *ngFor="let pro of service.list">
+    <td (click)="populateForm(pro)">{{pro.Project1}}</td>
+    <td (click)="populateForm(pro)">{{pro.Start_Date}}</td>
+    <td (click)="populateForm(pro)">{{pro.End_Date}}</td>
+    <td (click)="populateForm(pro)">{{pro.Priority}}</td>
+    <td><button (click)="onDelete(pro.Project_ID)" class="btn btn-sm btn-outline-danger">X</button></td>
+  </tr>
+</table>

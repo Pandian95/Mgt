@@ -76,29 +76,37 @@
     <Compile Include="Task.cs">
       <DependentUpon>ProjectManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="User.cs">
       <DependentUpon>ProjectManagerModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
     <EntityDeploy Include="ProjectManagerModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ProjectManagerModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="packages.config" />
     <None Include="ProjectManagerModel.edmx.diagram">
       <DependentUpon>ProjectManagerModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectManager.Logger\ProjectManager.Logger.csproj">
+      <Project>{1d1245f3-266d-4b4d-8ab7-e988438a3fd3}</Project>
+      <Name>ProjectManager.Logger</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ProjectManagerModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ProjectManagerModel.Context.cs</LastGenOutput>
       <DependentUpon>ProjectManagerModel.edmx</DependentUpon>
+      <LastGenOutput>ProjectManagerModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="ProjectManagerModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -106,9 +114,5 @@
       <LastGenOutput>ProjectManagerModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

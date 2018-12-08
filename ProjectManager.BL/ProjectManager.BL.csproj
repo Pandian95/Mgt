@@ -49,9 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IProjectServices.cs" />
+    <Compile Include="ITaskServices.cs" />
     <Compile Include="IUserServices.cs" />
     <Compile Include="ProjectServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskServices.cs" />
     <Compile Include="UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +64,10 @@
     <ProjectReference Include="..\ProjectManager.DAL\ProjectManager.DAL.csproj">
       <Project>{d019b9f2-7ef0-40b5-8096-7149289c2656}</Project>
       <Name>ProjectManager.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectManager.Logger\ProjectManager.Logger.csproj">
+      <Project>{1d1245f3-266d-4b4d-8ab7-e988438a3fd3}</Project>
+      <Name>ProjectManager.Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

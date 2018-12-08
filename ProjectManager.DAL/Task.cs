@@ -15,7 +15,7 @@ namespace ProjectManager.DAL
     public partial class Task
     {
         public int Task_ID { get; set; }
-        public Nullable<int> Parent__ID { get; set; }
+        public Nullable<int> Parent_ID { get; set; }
         public Nullable<int> Project_ID { get; set; }
         public string Task1 { get; set; }
         public System.DateTime Start_Date { get; set; }

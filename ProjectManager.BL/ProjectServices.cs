@@ -13,7 +13,7 @@ namespace ProjectManager.BL
 {
     public class ProjectServices : IProjectServices
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>  
         /// Public constructor.  
@@ -73,7 +73,7 @@ namespace ProjectManager.BL
             {
                 var project = new Project
                 {
-                    Project1 = projectEntity.Project,
+                    Project1 = projectEntity.Project1,
                     Start_Date = projectEntity.Start_Date,
                     End_Date = projectEntity.End_Date,
                     Priority = projectEntity.Priority
@@ -101,7 +101,7 @@ namespace ProjectManager.BL
                     var project = _unitOfWork.ProjectRepository.GetByID(projectId);
                     if (project != null)
                     {
-                        project.Project1 = projectEntity.Project;
+                        project.Project1 = projectEntity.Project1;
                         project.Start_Date = projectEntity.Start_Date;
                         project.End_Date = projectEntity.End_Date;
                         project.Priority = projectEntity.Priority;

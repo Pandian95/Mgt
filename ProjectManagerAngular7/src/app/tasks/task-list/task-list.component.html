@@ -1,0 +1,12 @@
+<table class="table table-hover">
+  <tr *ngFor="let tas of service.list">
+    <td (click)="populateForm(tas)">{{tas.Project_ID}}</td>
+    <td (click)="populateForm(tas)">{{tas.Parent_ID}}</td>
+    <td (click)="populateForm(tas)">{{tas.Task1}}</td>
+    <td (click)="populateForm(tas)">{{tas.Start_Date}}</td>
+    <td (click)="populateForm(tas)">{{tas.End_Date}}</td>
+    <td (click)="populateForm(tas)">{{tas.Priority}}</td>
+    <td (click)="populateForm(tas)">{{tas.Status}}</td>
+    <td><button (click)="onDelete(tas.Task_ID)" class="btn btn-sm btn-outline-danger">X</button></td>
+  </tr>
+</table>

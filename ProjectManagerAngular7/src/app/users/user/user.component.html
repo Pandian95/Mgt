@@ -1,0 +1,21 @@
+<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+  <input type="hidden" name="User_ID" #User_ID="ngModel" [(ngModel)]="service.formData.User_ID">
+  <div class="form-group">
+    <label>FIRST NAME</label>
+    <input name="First_Name" #FullName="ngModel" [(ngModel)]="service.formData.First_Name" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label>LAST NAME</label>
+    <input name="Last_Name" #Last_Name="ngModel" [(ngModel)]="service.formData.Last_Name" class="form-control">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>EMPLOYEE ID</label>
+      <input name="Employee_ID" #Employee_ID="ngModel" [(ngModel)]="service.formData.Employee_ID" class="form-control">
+    </div>   
+    
+  </div>
+  <div class="form-group">
+    <button type="submit" [disabled]="form.invalid" class="btn btn-lg btn-block">SUBMIT</button>
+  </div>
+</form>

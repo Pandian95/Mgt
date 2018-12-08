@@ -27,7 +27,7 @@
             <PropertyRef Name="Task_ID" />
           </Key>
           <Property Name="Task_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Parent _ID" Type="int" />
+          <Property Name="Parent_ID" Type="int" />
           <Property Name="Project_ID" Type="int" />
           <Property Name="Task" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Start_Date" Type="date" Nullable="false" />
@@ -54,7 +54,7 @@
               <PropertyRef Name="Parent_ID" />
             </Principal>
             <Dependent Role="Task">
-              <PropertyRef Name="Parent _ID" />
+              <PropertyRef Name="Parent_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -113,7 +113,7 @@
             <PropertyRef Name="Task_ID" />
           </Key>
           <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Parent__ID" Type="Int32" />
+          <Property Name="Parent_ID" Type="Int32" />
           <Property Name="Project_ID" Type="Int32" />
           <Property Name="Task1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
@@ -142,7 +142,7 @@
               <PropertyRef Name="Parent_ID" />
             </Principal>
             <Dependent Role="Task">
-              <PropertyRef Name="Parent__ID" />
+              <PropertyRef Name="Parent_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -201,7 +201,7 @@
             <EntityTypeMapping TypeName="ProjectManagerModel.Task">
               <MappingFragment StoreEntitySet="Task">
                 <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
-                <ScalarProperty Name="Parent__ID" ColumnName="Parent _ID" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
                 <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
                 <ScalarProperty Name="Task1" ColumnName="Task" />
                 <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />

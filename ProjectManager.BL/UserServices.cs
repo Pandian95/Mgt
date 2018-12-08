@@ -13,7 +13,7 @@ namespace ProjectManager.BL
 {
     public class UserServices : IUserServices
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>  
         /// Public constructor.  

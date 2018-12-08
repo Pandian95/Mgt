@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManager.PL", "ProjectManager.PL\ProjectManager.PL.csproj", "{7932DB30-7CA7-4F1A-8B24-EBAE6F9663FF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager.DAL", "ProjectManager.DAL\ProjectManager.DAL.csproj", "{D019B9F2-7EF0-40B5-8096-7149289C2656}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager.Services", "ProjectManager.Services\ProjectManager.Services.csproj", "{F6A72F4D-0719-4F48-8943-C0C88870FD2F}"
@@ -13,16 +11,36 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager.BusinessEnti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager.BL", "ProjectManager.BL\ProjectManager.BL.csproj", "{9E3AAAD5-7F47-442A-8BF0-5EA01B98D930}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager.Logger", "ProjectManager.Logger\ProjectManager.Logger.csproj", "{1D1245F3-266D-4B4D-8AB7-E988438A3FD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager.WebAPI", "ProjectManager.WebAPI\ProjectManager.WebAPI.csproj", "{6FE4FE6F-47E2-4C3F-BBF1-57F5E49D05D8}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ProjectManagerAngular7", "ProjectManagerAngular7\", "{8772E4B8-6B2E-4E90-A3F9-A32FABDD7B5D}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50022"
+		Debug.AspNetCompiler.PhysicalPath = "ProjectManagerAngular7\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50022\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50022"
+		Release.AspNetCompiler.PhysicalPath = "ProjectManagerAngular7\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50022\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50022"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7932DB30-7CA7-4F1A-8B24-EBAE6F9663FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7932DB30-7CA7-4F1A-8B24-EBAE6F9663FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7932DB30-7CA7-4F1A-8B24-EBAE6F9663FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7932DB30-7CA7-4F1A-8B24-EBAE6F9663FF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D019B9F2-7EF0-40B5-8096-7149289C2656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D019B9F2-7EF0-40B5-8096-7149289C2656}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D019B9F2-7EF0-40B5-8096-7149289C2656}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,11 +57,24 @@ Global
 		{9E3AAAD5-7F47-442A-8BF0-5EA01B98D930}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E3AAAD5-7F47-442A-8BF0-5EA01B98D930}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E3AAAD5-7F47-442A-8BF0-5EA01B98D930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D1245F3-266D-4B4D-8AB7-E988438A3FD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D1245F3-266D-4B4D-8AB7-E988438A3FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D1245F3-266D-4B4D-8AB7-E988438A3FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D1245F3-266D-4B4D-8AB7-E988438A3FD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FE4FE6F-47E2-4C3F-BBF1-57F5E49D05D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE4FE6F-47E2-4C3F-BBF1-57F5E49D05D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FE4FE6F-47E2-4C3F-BBF1-57F5E49D05D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FE4FE6F-47E2-4C3F-BBF1-57F5E49D05D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8772E4B8-6B2E-4E90-A3F9-A32FABDD7B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8772E4B8-6B2E-4E90-A3F9-A32FABDD7B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8772E4B8-6B2E-4E90-A3F9-A32FABDD7B5D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{8772E4B8-6B2E-4E90-A3F9-A32FABDD7B5D}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 		SolutionGuid = {36B2C79C-4D24-4D95-AA77-BBDD5E8A4F24}
 	EndGlobalSection
 EndGlobal

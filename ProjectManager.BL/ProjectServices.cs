@@ -14,6 +14,9 @@ namespace ProjectManager.BL
     public class ProjectServices : IProjectServices
     {
         private readonly IUnitOfWork _unitOfWork;
+        //private readonly ProjectRepository _unitOfWork1;
+
+
 
         /// <summary>  
         /// Public constructor.  
@@ -21,6 +24,7 @@ namespace ProjectManager.BL
         public ProjectServices()
         {
             _unitOfWork = new UnitOfWork();
+            //_unitOfWork1 = new ProjectRepository();
         }
 
         /// <summary>  
@@ -140,6 +144,20 @@ namespace ProjectManager.BL
             }
             return success;
         }
-        
+
+        public IEnumerable<vw_ProjectSearchEntity> GetProjectsSearch()
+        {
+            var projects = _unitOfWork.ProjectSearchRepository.GetAll().ToList();
+            if (projects.Any())
+            {
+                var config = new MapperConfiguration(cfg => {
+                    cfg.CreateMap<vw_ProjectSearch, vw_ProjectSearchEntity>();
+                });
+                IMapper mapper = config.CreateMapper();
+                var projectsModel = mapper.Map<List<vw_ProjectSearch>, List<vw_ProjectSearchEntity>>(projects);
+                return projectsModel;
+            }
+            return null;
+        }
     }
 }

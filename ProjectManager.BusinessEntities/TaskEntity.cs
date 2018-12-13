@@ -16,5 +16,6 @@ namespace ProjectManager.BusinessEntities
         public Nullable<System.DateTime> End_Date { get; set; }
         public string Priority { get; set; }
         public string Status { get; set; }
+        public Nullable<int> User_ID { get; set; }
     }
 }

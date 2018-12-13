@@ -4,4 +4,6 @@ export class Project {
          Start_Date :Date;
          End_Date :Date;
          Priority :string;
+         Manager: string;
+         Manager_ID:number;
 }

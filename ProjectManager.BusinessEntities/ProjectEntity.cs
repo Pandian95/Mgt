@@ -13,5 +13,6 @@ namespace ProjectManager.BusinessEntities
         public System.DateTime Start_Date { get; set; }
         public System.DateTime End_Date { get; set; }
         public string Priority { get; set; }
+        public int Manager_ID { get; set; }
     }
 }

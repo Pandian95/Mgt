@@ -1,21 +1,36 @@
-<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
-  <input type="hidden" name="User_ID" #User_ID="ngModel" [(ngModel)]="service.formData.User_ID">
-  <div class="form-group">
-    <label>FIRST NAME</label>
-    <input name="First_Name" #FullName="ngModel" [(ngModel)]="service.formData.First_Name" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label>LAST NAME</label>
-    <input name="Last_Name" #Last_Name="ngModel" [(ngModel)]="service.formData.Last_Name" class="form-control">
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>EMPLOYEE ID</label>
-      <input name="Employee_ID" #Employee_ID="ngModel" [(ngModel)]="service.formData.Employee_ID" class="form-control">
-    </div>   
-    
-  </div>
-  <div class="form-group">
-    <button type="submit" [disabled]="form.invalid" class="btn btn-lg btn-block">SUBMIT</button>
-  </div>
-</form>
+<div class="container">
+    <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+        <input type="hidden" name="User_ID" #User_ID="ngModel" [(ngModel)]="service.formData.User_ID">
+        <div class="row">
+            <div class="col-25">
+              <label>First Name:</label>
+            </div>
+            <div class="col-75">
+                <input name="First_Name" #FullName="ngModel" [(ngModel)]="service.formData.First_Name" class="form-control" required>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-25">
+                <label>Last Name:</label>
+              </div>
+              <div class="col-75">
+                  <input name="Last_Name" #Last_Name="ngModel" [(ngModel)]="service.formData.Last_Name" class="form-control" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                  <label>Employee ID:</label>
+                </div>
+                <div class="col-75">
+                    <input name="Employee_ID" #Employee_ID="ngModel" [(ngModel)]="service.formData.Employee_ID" class="form-control" required>
+                  </div>
+              </div>
+              <div class="row" style="float: right;margin-bottom:5px;">
+                  <button    type="submit" [disabled]="form.invalid" class="btn btn-primary btn-space">
+                      <label #lblButtonName id="lblButtonName">Add</label>
+                  </button>
+                  <button type="button" (click)="resetForm()" class="btn btn-primary btn-space">Reset</button>
+                  <hr>
+              </div>
+    </form>
+</div>

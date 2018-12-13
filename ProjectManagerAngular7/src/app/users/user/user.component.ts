@@ -19,6 +19,8 @@ export class UserComponent implements OnInit {
   resetForm(form?: NgForm) {
     if (form != null)
       form.resetForm();
+      document.getElementById('lblButtonName').innerHTML = 'Add';
+
     this.service.formData = {
       User_ID: null,
       First_Name: '',

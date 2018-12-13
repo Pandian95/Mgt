@@ -1,8 +1,57 @@
-<table class="table table-hover">
-  <tr *ngFor="let user of service.list">
-    <td (click)="populateForm(user)">{{user.First_Name}}</td>
-    <td (click)="populateForm(user)">{{user.Last_Name}}</td>
-    <td (click)="populateForm(user)">{{user.Employee_ID}}</td>
-    <td><button (click)="onDelete(user.User_ID)" class="btn btn-sm btn-outline-danger">X</button></td>
-  </tr>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-25">
+          </div>
+          <div class="col-60 btn-space">
+        <input class="btn-space" name="userSearch" [(ngModel)] = "userSearch" type="text" placeholder="Search">
+
+          </div>
+          <div class="col-15">
+                <button type="button" (click)="filterItem()" class="btn btn-primary btn-space">Search</button>
+        
+                  </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+          </div>
+          <div class="col-75">
+              Sort By:
+              <button type="submit" (click)="SortProject('First_Name')"  class="btn btn-primary btn-space">First Name</button>
+              <button type="submit"  (click)="SortProject('Last_Name')" class="btn btn-primary btn-space">Last Name</button>
+              <button type="submit" (click)="SortProject('Employee_ID')"  class="btn btn-primary btn-space">Employee ID</button>
+          </div>
+    </div>
+    <br>
+    <div class="row">
+        <table class="table table-hover">
+            <tr *ngFor="let user of service.list">
+                <div class="form-row" style="border-bottom: 1px dotted black;">
+                    <div class="form-group col-md-8">
+                        <div class="form-group">
+                            <b>First Name:</b> {{user.First_Name}}
+                        </div>
+                        <div class="form-group">
+                            <b>Last Name:</b> {{user.Last_Name}}    
+                        </div>
+                        <div class="form-group">
+                            <b>Employee ID:</b> {{user.Employee_ID}}
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="form-group" style="padding-top: 5px;">
+                            <button type="button" (click)="populateForm(user)"  class="btn btn-primary btn-space">Update</button>
+                            <button type="button" (click)="onDelete(user.User_ID)"  class="btn btn-primary">Suspend</button>
+
+                    </div>
+                    
+                      </div>
+                </div>
+
+              <!-- <td (click)="populateForm(user)">{{user.First_Name}}</td>
+              <td (click)="populateForm(user)">{{user.Last_Name}}</td>
+              <td (click)="populateForm(user)">{{user.Employee_ID}}</td>
+              <td><button (click)="onDelete(user.User_ID)" class="btn btn-sm btn-outline-danger">X</button></td> -->
+            </tr>
+          </table>
+    </div>
+</div>

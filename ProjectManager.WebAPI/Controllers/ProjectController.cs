@@ -14,6 +14,8 @@ namespace ProjectManager.WebAPI.Controllers
     {
         private readonly IProjectServices _projectServices;
         private readonly ILogger _loggerServices;
+        private readonly IUserServices _userServices;
+
 
         #region Public Constructor  
 
@@ -23,6 +25,8 @@ namespace ProjectManager.WebAPI.Controllers
         public ProjectController()
         {
             _projectServices = new ProjectServices();
+            _userServices = new UserServices();
+
             _loggerServices = new LoggerException();
         }
 
@@ -34,10 +38,10 @@ namespace ProjectManager.WebAPI.Controllers
             try
             {
                 _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : ProjectController | Method Name : Get | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
-                var projects = _projectServices.GetAllProjects();
+                var projects = _projectServices.GetProjectsSearch();
                 if (projects != null)
                 {
-                    var projectEntities = projects as List<ProjectEntity> ?? projects.ToList();
+                    var projectEntities = projects as List<vw_ProjectSearchEntity> ?? projects.ToList();
                     if (projectEntities.Any())
                         return Request.CreateResponse(HttpStatusCode.OK, projectEntities);
                 }
@@ -74,7 +78,14 @@ namespace ProjectManager.WebAPI.Controllers
             try
             {
                 _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : ProjectController | Method Name : CreateProject | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
-                return _projectServices.CreateProject(projectEntity);
+                int iProjectId = _projectServices.CreateProject(projectEntity);
+
+                var user = _userServices.GetUserById(projectEntity.Manager_ID);
+                user.Project_ID = iProjectId;
+
+                if (projectEntity.Manager_ID != 0)
+                    _userServices.UpdateUser(projectEntity.Manager_ID, user);
+                return iProjectId;
             }
             catch (Exception exception)
             {
@@ -92,7 +103,17 @@ namespace ProjectManager.WebAPI.Controllers
                 if (id > 0)
                 {
                     _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : ProjectController | Method Name : UpdateProject | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
-                    return _projectServices.UpdateProject(id, projectEntity);
+                    bool returnStatus = _projectServices.UpdateProject(id, projectEntity);
+                    if (projectEntity.Manager_ID != 0)
+                    {
+                        var user = _userServices.GetUserById(projectEntity.Manager_ID);
+                        user.Project_ID = projectEntity.Project_ID;
+
+                        if (projectEntity.Manager_ID != 0)
+                            _userServices.UpdateUser(projectEntity.Manager_ID, user);
+                    }
+                    
+                    return returnStatus;
                 }
             }
             catch (Exception exception)

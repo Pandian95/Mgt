@@ -9,6 +9,7 @@ import { User } from 'src/app/shared/user.model';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  userSearch: string;
 
   constructor(private service: UserService,
     private toastr: ToastrService) { }
@@ -18,6 +19,7 @@ export class UserListComponent implements OnInit {
   }
 
   populateForm(usr: User) {
+    document.getElementById('lblButtonName').innerHTML = 'Update';
     this.service.formData = Object.assign({}, usr);
   }
 
@@ -29,5 +31,46 @@ export class UserListComponent implements OnInit {
       });
     }
   }
+
+  SortProject(sort: string){
+    
+    if(sort = "First_Name")
+    {
+      this.service.list.sort((a, b) => {
+        if (a.First_Name < b.First_Name) return -1;
+        else if (a.First_Name > b.First_Name) return 1;
+        else return 0;
+      });
+    }
+    else if(sort = "End_Date")
+    {
+      this.service.list.sort((a, b) => {
+        if (a.Last_Name < b.Last_Name) return -1;
+        else if (a.Last_Name > b.Last_Name) return 1;
+        else return 0;
+      });
+    }
+    else if(sort = "Priority")
+    {
+      this.service.list.sort((a, b) => {
+        if (a.Employee_ID < b.Employee_ID) return -1;
+        else if (a.Employee_ID > b.Employee_ID) return 1;
+        else return 0;
+      });
+    }
+    
+  }
+  filterItem(){
+    if(this.userSearch != '')
+    {
+      this.service.list = Object.assign([], this.service.list).filter(
+        item => item.First_Name.toLowerCase().indexOf(this.userSearch.toLowerCase()) > -1
+     ) 
+    }
+    else
+    {
+      this.service.refreshList();
+    }
+  } 
 
 }

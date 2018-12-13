@@ -1,25 +1,84 @@
+<div class="container">
 <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
   <input type="hidden" name="Project_ID" #Project_ID="ngModel" [(ngModel)]="service.formData.Project_ID">
-  <div class="form-group">
-    <label>Project</label>
-    <input name="Project1" #Project1="ngModel" [(ngModel)]="service.formData.Project1" class="form-control" required>
+    <div class="row">
+      <div class="col-25">
+        <label for="project">Project:</label>
+      </div>
+      <div class="col-75">
+    <input class="form-control" name="Project1" #Project1="ngModel" [(ngModel)]="service.formData.Project1" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label></label>
+      </div>
+      <div class="col-75">
+          <input type="checkbox" name="chkStartAndEndDate" #chkStartAndEndDate
+          [checked]="service.setCheckBoxStartEnd" (change)="resetDateControl()">Set Start and End Date
+<input name="Start_Date" [disabled]="!chkStartAndEndDate.checked"  #Start_Date="ngModel" [(ngModel)]="service.formData.Start_Date" matInput [matDatepicker]="pickerStartDate" placeholder="Start date">
+          <mat-datepicker-toggle [disabled]="!chkStartAndEndDate.checked" matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+          <mat-datepicker [disabled]="!chkStartAndEndDate.checked" #pickerStartDate></mat-datepicker>
+          <input  name="End_Date" [disabled]="!chkStartAndEndDate.checked" #End_Date="ngModel" [(ngModel)]="service.formData.End_Date" matInput [matDatepicker]="pickerEndDate" placeholder="End date">
+          <mat-datepicker-toggle [disabled]="!chkStartAndEndDate.checked" matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+          <mat-datepicker [disabled]="!chkStartAndEndDate.checked" #pickerEndDate></mat-datepicker>      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label>Priority:</label>
+      </div>
+      <div class="col-75" style="padding-top: 15px;">
+          <input  type="range" min="0" max="30" value="0" class="slider" #Priority="ngModel" [(ngModel)]="service.formData.Priority" id="priorityInputId" oninput="priorityOutputId.value = priorityInputId.value; service.formData.Priority = priorityInputId.value" name="Priority">
+          <output name="priorityOutputName" id="priorityOutputId">0</output>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+          <label>Manager:</label>
+        </div>
+        <div class="col-60 btn-space">
+            <input type="hidden" name="Manager_ID" #Manager_ID="ngModel" [(ngModel)]="service.formData.Manager_ID">
+
+                <input [disabled]="true" name="Manager" #Manager="ngModel" [(ngModel)]="service.formData.Manager" class="form-control">
+        </div>
+        <div class="col-15  ">
+            <button type="button" (click)="openLg(content)" class="btn btn-primary btn-space">Search</button>
+    </div>
+      </div>
+    <div class="row" style="float: right;margin-bottom:5px;">
+        <button    type="submit" [disabled]="form.invalid" class="btn btn-primary btn-space">
+            <label #lblButtonName id="lblButtonName"></label>
+        </button>
+        <button type="button" (click)="resetForm()" class="btn btn-primary btn-space">Reset</button>
+        <hr>
+    </div>
+  </form>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Users</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-  <div class="form-group">
-    <label>Start Date</label>
-    <input name="Start_Date" #Start_Date="ngModel" [(ngModel)]="service.formData.Start_Date" class="form-control">
+  <div class="modal-body">
+    <table class="table table-hover">
+      <tr>
+        <td style="border:none;">
+            <input placeholder="Search" name="User" [(ngModel)] = "userSearch" class="btn-space">
+            <button type="button" (click)="filterItem()" class="btn btn-primary btn-space">Search</button>
+        </td>
+      </tr>
+      <tr *ngFor="let user of userservice.list">
+        <td (click)="populateManagerName(user)">{{user.First_Name}}</td>
+        <td (click)="populateManagerName(user)">{{user.Last_Name}}</td>
+        <td (click)="populateManagerName(user)">{{user.Employee_ID}}</td>
+      </tr>
+    </table>
   </div>
-  <div class="form-group">
-    <label>End Date</label>
-    <input name="End_Date" #End_Date="ngModel" [(ngModel)]="service.formData.End_Date" class="form-control">
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
   </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Priority</label>
-      <input name="Priority" #Priority="ngModel" [(ngModel)]="service.formData.Priority" class="form-control">
-    </div>   
-    
-  </div>
-  <div class="form-group">
-    <button type="submit" [disabled]="form.invalid" class="btn btn-lg btn-block">SUBMIT</button>
-  </div>
-</form>
+</ng-template>
+

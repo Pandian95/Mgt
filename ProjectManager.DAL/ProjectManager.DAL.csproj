@@ -73,12 +73,21 @@
       <DependentUpon>ProjectManagerModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SP_GetProjectSearch_Result.cs">
+      <DependentUpon>ProjectManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Task.cs">
       <DependentUpon>ProjectManagerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="User.cs">
+      <DependentUpon>ProjectManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_ProjectSearch.cs">
+      <DependentUpon>ProjectManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_TaskSearch.cs">
       <DependentUpon>ProjectManagerModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

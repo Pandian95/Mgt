@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="ProjectManagerModel.User" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="ProjectManagerModel.FK_Parent_Task" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagerModel.FK_Project_Task" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProjectManagerModel.vw_ProjectSearch" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ProjectManagerModel.vw_TaskSearch" Width="1.5" PointX="5.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

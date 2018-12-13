@@ -1,36 +1,165 @@
-<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
-  <input type="hidden" name="Task_ID" #Task_ID="ngModel" [(ngModel)]="service.formData.Task_ID">
-  <div class="form-group">
-    <label>Project</label>
-    <input name="Project_ID" #Project_ID="ngModel" [(ngModel)]="service.formData.Project_ID" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label>Parent Task</label>
-    <input name="Parent__ID" #Parent__ID="ngModel" [(ngModel)]="service.formData.Parent__ID" class="form-control">
-  </div>
-  <div class="form-group">
-    <label>Task1</label>
-    <input name="Task1" #Task1="ngModel" [(ngModel)]="service.formData.Task1" class="form-control">
-  </div>
-  <div class="form-group">
-    <label>Start Date</label>
-    <input name="Start_Date" #Start_Date="ngModel" [(ngModel)]="service.formData.Start_Date" class="form-control">
-  </div>
-  <div class="form-group">
-    <label>End Date</label>
-    <input name="End_Date" #End_Date="ngModel" [(ngModel)]="service.formData.End_Date" class="form-control">
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Priority</label>
-      <input name="Priority" #Priority="ngModel" [(ngModel)]="service.formData.Priority" class="form-control">
-    </div>   
-    <div class="form-group col-md-6">
-      <label>Status</label>
-      <input name="Status" #Status="ngModel" [(ngModel)]="service.formData.Status" class="form-control">
+<div class="container">
+    <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+        <input type="hidden" name="Task_ID" #Task_ID="ngModel" [(ngModel)]="service.formData.Task_ID">
+        <div class="row">
+            <div class="col-25">
+              <label>Project:</label>
+            </div>
+            <div class="col-60 btn-space">
+                <input type="hidden" name="Project_ID" #Project_ID="ngModel" [(ngModel)]="service.formData.Project_ID">    
+                <input disabled name="ProjectName" #ProjectName="ngModel" [(ngModel)]="service.formData.ProjectName" class="form-control">
+              </div>
+            <div class="col-15  ">
+                <button (click)="openProjectModal(projectcontent)" [disabled]="chkParentTask.checked" type="button" class="btn btn-primary btn-space">Search</button>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-25">
+                <label for="project">Task:</label>
+              </div>
+              <div class="col-75">
+            <input class="form-control" name="Task1" #Task1="ngModel" [(ngModel)]="service.formData.Task1" required>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                  <label></label>
+                </div>
+                <div class="col-75">
+                    <input type="checkbox" [checked]="setParentCheckBox" (change)="resetParentControl()" name="chkParentTask" #chkParentTask>Parent Task
+           </div>
+              </div>
+              <div class="row">
+                  <div class="col-25">
+                    <label>Priority:</label>
+                  </div>
+                  <div class="col-75" style="padding-top: 15px;">
+                      <input  type="range" min="0" max="30" value="1" class="slider" #Priority="ngModel" [(ngModel)]="service.formData.Priority" id="priorityInputId" oninput="priorityOutputId.value = priorityInputId.value; service.formData.Priority = priorityInputId.value" name="Priority">
+                      <output name="priorityOutputName" id="priorityOutputId">0</output>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                      <label>Parent Task:</label>
+                    </div>
+                    <div class="col-60 btn-space">
+                        <input type="hidden" name="Parent_ID" #Parent_ID="ngModel" [(ngModel)]="service.formData.Parent_ID">    
+                        <input disabled name="ParentTaskName" #ParentTaskName="ngModel" [(ngModel)]="service.formData.ParentTaskName" class="form-control">
+                      </div>
+                    <div class="col-15  ">
+                        <button type="button" [disabled]="chkParentTask.checked" (click)="openTaskModal(taskcontent)" class="btn btn-primary btn-space">Search</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-25">
+                        <label>Start Date:</label>
+                      </div>
+                      <div class="col-75">
+                <input name="Start_Date"  [disabled]="chkParentTask.checked" #Start_Date="ngModel" [(ngModel)]="service.formData.Start_Date" matInput [matDatepicker]="pickerStartDate" placeholder="Start date">
+                          <mat-datepicker-toggle  [disabled]="chkParentTask.checked" matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+                          <mat-datepicker  [disabled]="chkParentTask.checked" #pickerStartDate></mat-datepicker>
+                          <label>End Date:</label>
+                          <input  name="End_Date"  [disabled]="chkParentTask.checked" #End_Date="ngModel" [(ngModel)]="service.formData.End_Date" matInput [matDatepicker]="pickerEndDate" placeholder="End date">
+                          <mat-datepicker-toggle  [disabled]="chkParentTask.checked" matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+                          <mat-datepicker  [disabled]="chkParentTask.checked" #pickerEndDate></mat-datepicker>      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                          <label>User:</label>
+                        </div>
+                        <div class="col-60 btn-space">
+                            <input type="hidden" name="User_ID" #User_ID="ngModel" [(ngModel)]="service.formData.User_ID">
+                
+                                <input [disabled]="true" name="UserName" #UserName="ngModel" [(ngModel)]="service.formData.UserName" class="form-control">
+                        </div>
+                        <div class="col-15  ">
+                            <button type="button"  [disabled]="chkParentTask.checked" (click)="openLg(content)" class="btn btn-primary btn-space">Search</button>
+                    </div>
+                      </div>
+                      <div class="row" style="float: right;margin-bottom:5px;">
+                          <button    [disabled]="form.invalid" type="submit"  class="btn btn-primary btn-space">
+                              <label #lblButtonName id="lblButtonName"> Add Task</label>
+                          </button>
+                          <button type="button" (click)="resetForm()" class="btn btn-primary btn-space">Reset</button>
+                          <hr>
+                      </div>
+    </form>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Users</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-  </div>
-  <div class="form-group">
-    <button type="submit" [disabled]="form.invalid" class="btn btn-lg btn-block">SUBMIT</button>
-  </div>
-</form>
+    <div class="modal-body">
+      <table class="table table-hover">
+        <tr>
+          <td style="border:none;">
+              <input placeholder="Search" name="User" [(ngModel)] = "userSearch" class="btn-space">
+              <button type="button" (click)="filterItem()" class="btn btn-primary btn-space">Search</button>
+          </td>
+        </tr>
+        <tr *ngFor="let user of userservice.list">
+          <td (click)="populateUserName(user)">{{user.First_Name}}</td>
+          <td (click)="populateUserName(user)">{{user.Last_Name}}</td>
+          <td (click)="populateUserName(user)">{{user.Employee_ID}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+
+<ng-template #taskcontent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Tasks</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-hover">
+        <tr>
+          <td style="border:none;">
+              <input placeholder="Search" name="Task" [(ngModel)] = "taskSearch" class="btn-space">
+              <button type="button" (click)="taskFilterItem()" class="btn btn-primary btn-space">Search</button>
+          </td>
+        </tr>
+        <tr *ngFor="let tas of parentTaskService.list">
+          <td (click)="populateTaskName(tas)">{{tas.Parent_Task}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #projectcontent let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Tasks</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <tr>
+            <td style="border:none;">
+                <input placeholder="Search" name="Task" [(ngModel)] = "projectSearch" class="btn-space">
+                <button type="button" (click)="projectFilterItem()" class="btn btn-primary btn-space">Search</button>
+            </td>
+          </tr>
+          <tr *ngFor="let pro of projectService.list1">
+            <td (click)="populateProjectName(pro)">{{pro.ProjectName}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      </div>
+    </ng-template>

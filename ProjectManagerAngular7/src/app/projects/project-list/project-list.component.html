@@ -1,9 +1,79 @@
-<table class="table table-hover">
-  <tr *ngFor="let pro of service.list">
-    <td (click)="populateForm(pro)">{{pro.Project1}}</td>
-    <td (click)="populateForm(pro)">{{pro.Start_Date}}</td>
-    <td (click)="populateForm(pro)">{{pro.End_Date}}</td>
-    <td (click)="populateForm(pro)">{{pro.Priority}}</td>
-    <td><button (click)="onDelete(pro.Project_ID)" class="btn btn-sm btn-outline-danger">X</button></td>
-  </tr>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-25">
+          </div>
+          <div class="col-60 btn-space">
+        <input class="btn-space" name="ProjectSearch" [(ngModel)] = "projectSearch" type="text" placeholder="Search">
+
+          </div>
+          <div class="col-15">
+                <button type="button" (click)="filterItem()" class="btn btn-primary btn-space">Search</button>
+        
+                  </div>
+    </div>
+    <div class="row">
+        <div class="col-25">
+          </div>
+          <div class="col-75">
+              Sort By:
+              <button type="submit" (click)="SortProject('Start_Date')"  class="btn btn-primary btn-space">Start Date</button>
+              <button type="submit"  (click)="SortProject('End_Date')" class="btn btn-primary btn-space">End Date</button>
+              <button type="submit" (click)="SortProject('Priority')"  class="btn btn-primary btn-space">Priority</button>
+              <button type="submit" (click)="SortProject('No_OfTaskCompleted')"  class="btn btn-primary btn-space">Completed</button>
+          </div>
+    </div>
+    <br>
+<div class="row">
+    <table class="table table-hover">            
+        <tr *ngFor="let pro of service.list1 | orderBy: ProjectName">
+                <div class="form-row" style="border-bottom: 1px dotted black;">
+                        <div class="form-group col-md-6">
+                                <div class="form-group">
+                                        <b>Project:</b> {{pro.ProjectName}}
+                                </div>
+                                <div class="form-row">                    
+                                        <div class="form-group col-md-6">
+                                                <b>No Of Tasks:</b> {{pro.No_OfTask}}
+                                              </div>
+                                              <div class="form-group col-md-6">
+                                                <b>Completed:</b> {{pro.No_OfTaskCompleted}}
+                                              </div>
+                                    </div>
+                                    <div class="form-row">                    
+                                            <div class="form-group col-md-6">
+                                                    <b>Start Date:</b> {{pro.Project_Start_Date}}
+                                                  </div>
+                                                  <div class="form-group col-md-6">
+                                                    <b>End Date:</b> {{pro.Project_End_Date}}
+                                                  </div>
+                                        </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                                <b>Priority:</b> {{pro.Project_Priority}}
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                    <div class="form-group" style="padding-top: 5px;">
+                                            <button type="button" (click)="populateForm(pro)"  class="btn btn-primary btn-space">Update</button>
+                                            <button type="button" (click)="onDelete(pro.Project_ID)"  class="btn btn-primary">Suspend</button>
+
+                                    </div>
+                                    
+                                </div>
+                </div>                
+          <!-- <td (click)="populateForm(pro)">{{pro.ProjectName}}</td>
+          <td (click)="populateForm(pro)">{{pro.Project_Start_Date}}</td>
+          <td (click)="populateForm(pro)">{{pro.Project_End_Date}}</td>
+          <td (click)="populateForm(pro)">{{pro.Project_Priority}}</td>
+          <td (click)="populateForm(pro)">{{pro.No_OfTask}}</td>
+          <td (click)="populateForm(pro)">{{pro.No_OfTaskCompleted}}</td>
+          <td>
+              <button type="submit" (click)="populateForm(pro)"  class="btn btn-primary btn-space">Update</button>
+          </td>
+          <td>
+              <button type="submit" (click)="onDelete(pro.Project_ID)"  class="btn btn-primary btn-space">Suspend</button>
+          </td> -->
+        </tr>
+      </table>
+</div>
+</div>

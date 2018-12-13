@@ -1,4 +1,5 @@
 ﻿using ProjectManager.BusinessEntities;
+using ProjectManager.DAL;
 using System.Collections.Generic;
 
 namespace ProjectManager.BL
@@ -13,5 +14,6 @@ namespace ProjectManager.BL
         int CreateProject(ProjectEntity projectEntity);
         bool UpdateProject(int projectId, ProjectEntity projectEntity);
         bool DeleteProject(int projectId);
+        IEnumerable<vw_ProjectSearchEntity> GetProjectsSearch();
     }
 }

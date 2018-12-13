@@ -5,7 +5,12 @@ import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {DropdownModule} from 'angular-dropdown-component';
+import { Router } from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MatTabsModule,MatDatepickerModule,MatNativeDateModule,MatButtonModule,MatFormFieldModule,MatInputModule } from '@angular/material';
+import { OrderModule } from 'ngx-order-pipe';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
@@ -19,6 +24,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './tasks/task/task.component';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskService } from './shared/task.service';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +44,21 @@ import { TaskService } from './shared/task.service';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AppRoutingModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    OrderModule,
+    NgbModule.forRoot()
+  ],
+  exports: [
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [UserService,ProjectService,TaskService],
   bootstrap: [AppComponent]

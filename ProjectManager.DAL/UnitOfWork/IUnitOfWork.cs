@@ -21,6 +21,14 @@ namespace ProjectManager.DAL.UnitOfWork
         {
             get;
         }
+        GenericRepository<vw_ProjectSearch> ProjectSearchRepository
+        {
+            get;
+        }
+        GenericRepository<ParentTask> ParentTaskRepository
+        {
+            get;
+        }
         void Save();
     }
 }

@@ -12,6 +12,8 @@ namespace ProjectManager.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ProjectManagerEntities : DbContext
     {
@@ -29,5 +31,12 @@ namespace ProjectManager.DAL
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<vw_ProjectSearch> vw_ProjectSearch { get; set; }
+        public virtual DbSet<vw_TaskSearch> vw_TaskSearch { get; set; }
+    
+        public virtual ObjectResult<SP_GetProjectSearch_Result> SP_GetProjectSearch()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetProjectSearch_Result>("SP_GetProjectSearch");
+        }
     }
 }

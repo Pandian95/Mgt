@@ -1,10 +1,14 @@
 export class Task {
-        Task_ID : null;
-        Parent_ID :null;
-        Project_ID :null;
-        Task1 :null;
-        Start_Date :null;
-        End_Date :null;
-        Priority :null;
-        Status :null;
+        Task_ID : number;
+        Parent_ID :number;
+        Project_ID :number;
+        Task1 :string;
+        Start_Date :Date;
+        End_Date :Date;
+        Priority :string;
+        Status :string;
+        ProjectName:string;
+        ParentTaskName : string;
+        User_ID : number;
+        UserName:string;
 }

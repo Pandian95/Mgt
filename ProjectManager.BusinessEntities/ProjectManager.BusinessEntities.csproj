@@ -53,6 +53,7 @@
     <Compile Include="TaskEntity.cs" />
     <Compile Include="UserEntity.cs" />
     <Compile Include="vw_ProjectSearchEntity.cs" />
+    <Compile Include="vw_TaskSearchEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -72,6 +72,21 @@ namespace ProjectManager.BL
             }
             return success;
         }
+
+        public IEnumerable<vw_TaskSearchEntity> GetTaskSearch()
+        {
+            var tasks = _unitOfWork.TaskSearchRepository.GetAll().ToList();
+            if (tasks.Any())
+            {
+                var config = new MapperConfiguration(cfg => {
+                    cfg.CreateMap<vw_TaskSearch, vw_TaskSearchEntity>();
+                });
+                IMapper mapper = config.CreateMapper();
+                var tasksModel = mapper.Map<List<vw_TaskSearch>, List<vw_TaskSearchEntity>>(tasks);
+                return tasksModel;
+            }
+            return null;
+        }
         /// <summary>  
         /// Fetches all the tasks.  
         /// </summary>  
@@ -143,4 +158,5 @@ namespace ProjectManager.BL
             return success;
         }
     }
+    
 }

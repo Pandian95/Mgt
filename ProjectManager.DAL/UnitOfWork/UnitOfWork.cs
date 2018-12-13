@@ -23,6 +23,8 @@ namespace ProjectManager.DAL.UnitOfWork
         private GenericRepository<Task> _taskRepository;
         private GenericRepository<ParentTask> _parentTaskRepository;
         private GenericRepository<vw_ProjectSearch> _vwProjectSearchRepository;
+        private GenericRepository<vw_TaskSearch> _vwTaskSearchRepository;
+
         #endregion
 
         public UnitOfWork()
@@ -88,6 +90,16 @@ namespace ProjectManager.DAL.UnitOfWork
                 if (this._parentTaskRepository == null)
                     this._parentTaskRepository = new GenericRepository<ParentTask>(_context);
                 return _parentTaskRepository;
+            }
+        }
+
+        public GenericRepository<vw_TaskSearch> TaskSearchRepository
+        {
+            get
+            {
+                if (this._vwTaskSearchRepository == null)
+                    this._vwTaskSearchRepository = new GenericRepository<vw_TaskSearch>(_context);
+                return _vwTaskSearchRepository;
             }
         }
         #endregion

@@ -29,6 +29,10 @@ namespace ProjectManager.DAL.UnitOfWork
         {
             get;
         }
+        GenericRepository<vw_TaskSearch> TaskSearchRepository
+        {
+            get;
+        }
         void Save();
     }
 }

@@ -14,6 +14,8 @@ namespace ProjectManager.WebAPI.Controllers
     {
         private readonly ITaskServices _taskServices;
         private readonly ILogger _loggerServices;
+        private readonly IUserServices _userServices;
+
 
         #region Public Constructor  
 
@@ -23,6 +25,8 @@ namespace ProjectManager.WebAPI.Controllers
         public TaskController()
         {
             _taskServices = new TaskServices();
+            _userServices = new UserServices();
+
             _loggerServices = new LoggerException();
         }
 
@@ -34,10 +38,10 @@ namespace ProjectManager.WebAPI.Controllers
             {
                 _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : TaskController | Method Name : GetAllTasks | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
 
-                var tasks = _taskServices.GetAllTasks();
+                var tasks = _taskServices.GetTaskSearch();
                 if (tasks != null)
                 {
-                    var taskEntities = tasks as List<TaskEntity> ?? tasks.ToList();
+                    var taskEntities = tasks as List<vw_TaskSearchEntity> ?? tasks.ToList();
                     if (taskEntities.Any())
                         return Request.CreateResponse(HttpStatusCode.OK, taskEntities);
                 }
@@ -74,7 +78,17 @@ namespace ProjectManager.WebAPI.Controllers
             {
                 _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : TaskController | Method Name : CreateTask | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
 
-                return _taskServices.CreateTask(taskEntity);
+                int iTaskID = _taskServices.CreateTask(taskEntity);
+                if(taskEntity.User_ID != null)
+                {
+                    int iUserID = Convert.ToInt32(taskEntity.User_ID);
+                    var user = _userServices.GetUserById(iUserID);
+                    user.Task_ID = iTaskID;
+
+                    if (taskEntity.User_ID != 0)
+                        _userServices.UpdateUser(iUserID, user);
+                }                
+                return iTaskID;
             }
             catch (Exception exception)
             {
@@ -91,7 +105,19 @@ namespace ProjectManager.WebAPI.Controllers
                 if (id > 0)
                 {
                     _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : TaskController | Method Name : UpdateTask | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
-                    return _taskServices.UpdateTask(id, taskEntity);
+                    bool returnStatus = _taskServices.UpdateTask(id, taskEntity);
+
+                    if (taskEntity.User_ID != null)
+                    {
+                        int iUserID = Convert.ToInt32(taskEntity.User_ID);
+                        var user = _userServices.GetUserById(iUserID);
+                        user.Task_ID = taskEntity.Task_ID;
+
+                        if (taskEntity.User_ID != 0)
+                            _userServices.UpdateUser(iUserID, user);
+                    }
+
+                    return returnStatus;
                 }
             }
             catch (Exception exception)

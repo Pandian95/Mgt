@@ -10,5 +10,7 @@ namespace ProjectManager.BL
         int CreateTask(TaskEntity taskEntity);
         bool UpdateTask(int taskId, TaskEntity taskEntity);
         bool DeleteTask(int taskId);
+        IEnumerable<vw_TaskSearchEntity> GetTaskSearch();
+
     }
 }

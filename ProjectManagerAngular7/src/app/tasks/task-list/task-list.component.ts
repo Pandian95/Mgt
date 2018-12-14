@@ -30,6 +30,10 @@ EditTask(tas: Tasksearch)
   this.service.buttonLabelName = 'Update Task';
   this.service.isUpdate = true;
   var tsk: Task;
+  if(tas.TaskStartDate == '01/01/0001')
+      tsk.Start_Date = null;
+  if(tas.TaskEndDate == '01/01/0001')
+      tsk.End_Date = null;
   tsk = {
       Task_ID : tas.Task_ID,
       Parent_ID :tas.TaskParentID,
@@ -37,7 +41,7 @@ EditTask(tas: Tasksearch)
       Task1 :tas.TaskName,
       Start_Date :tas.Start_Date,
       End_Date :tas.End_Date,
-      Priority :tas.TaskPriority,
+      Priority : Number(tas.TaskPriority),
       Status :tas.TaskStatus,
       ProjectName:tas.MappedProject,
       ParentTaskName : tas.ParentTask,

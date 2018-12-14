@@ -1,9 +1,9 @@
 export class Projectsearch {
         Project_ID : number;
          ProjectName : string;
-         Project_Start_Date:Date;
-         Project_End_Date : Date;
-         Project_Priority : string;
+         Project_Start_Date:string;
+         Project_End_Date : string;
+         Project_Priority : number;
          User_ID:number;
          UserFullName:string;
          No_OfTask:number;

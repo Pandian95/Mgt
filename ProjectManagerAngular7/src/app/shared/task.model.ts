@@ -5,7 +5,7 @@ export class Task {
         Task1 :string;
         Start_Date :Date;
         End_Date :Date;
-        Priority :string;
+        Priority :number;
         Status :string;
         ProjectName:string;
         ParentTaskName : string;

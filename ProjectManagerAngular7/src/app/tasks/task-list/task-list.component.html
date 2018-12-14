@@ -1,12 +1,95 @@
-<table class="table table-hover">
-  <tr *ngFor="let tas of service.list">
-    <td (click)="populateForm(tas)">{{tas.Project_ID}}</td>
-    <td (click)="populateForm(tas)">{{tas.Parent_ID}}</td>
-    <td (click)="populateForm(tas)">{{tas.Task1}}</td>
-    <td (click)="populateForm(tas)">{{tas.Start_Date}}</td>
-    <td (click)="populateForm(tas)">{{tas.End_Date}}</td>
-    <td (click)="populateForm(tas)">{{tas.Priority}}</td>
-    <td (click)="populateForm(tas)">{{tas.Status}}</td>
-    <td><button (click)="onDelete(tas.Task_ID)" class="btn btn-sm btn-outline-danger">X</button></td>
-  </tr>
-</table>
+<div class="container">
+                <div class="row">
+                    <div class="col-25">
+                            Project:
+                      </div>
+                      <div class="col-60 btn-space">
+                    <input class="form-control" disabled  name="ProjectSearchTask" [(ngModel)] = "ProjectSearchTask" type="text" placeholder="Search">
+            
+                      </div>
+                      <div class="col-15">
+                            <button type="button" (click)="openProjectModal(projectcontent)" class="btn btn-primary btn-space">Search</button>
+                            Sort Task By:
+                            <button type="submit" (click)="SortTask('Start_Date')"  class="btn btn-primary btn-space">Start Date</button>
+                            <button type="submit"  (click)="SortTask('End_Date')" class="btn btn-primary btn-space">End Date</button>
+                            <button type="submit" (click)="SortTask('Priority')"  class="btn btn-primary btn-space">Priority</button>
+                            <button type="submit" (click)="SortTask('Status')"  class="btn btn-primary btn-space">Completed</button>
+                              </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                      </div>
+                      <div class="col-75">
+                         
+                      </div>
+                </div>
+                <br>
+            <div class="row">
+                <table class="table table-hover">            
+                    <tr *ngFor="let tsk of service.list1 | orderBy: ProjectName">                                
+                            <div class="form-row" style="border-bottom: 1px dotted black;">
+                                    <div class="form-group col-md-6">
+                                            <div class="form-group">
+                                                    <b>Task:</b> {{tsk.TaskName}}
+                                            </div>
+                                            <div class="form-row">                    
+                                                    <div class="form-group col-md-6">
+                                                            <b>Parent Task:</b> {{tsk.ParentTask}}
+                                                          </div>
+                                                          <div class="form-group col-md-6">
+                                                            <b>Priority:</b> {{tsk.TaskPriority}}
+                                                          </div>
+                                                </div>
+                                                <div class="form-row">                    
+                                                        <div class="form-group col-md-6">
+                                                                <b>Start Date:</b> {{tsk.TaskStartDate}}
+                                                              </div>
+                                                              <div class="form-group col-md-6">
+                                                                <b>End Date:</b> {{tsk.TaskEndDate}}
+                                                              </div>
+                                                    </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                            <b>Priority:</b> {{tsk.TaskPriority}}
+            
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                                <div class="form-group" style="padding-top: 5px;">
+                                                        <button type="button" (click)="EditTask(tsk)" class="btn btn-primary btn-space">Edit</button>
+                                                        <button type="button" (click)="onStatusUpdate(tsk.Task_ID)"  class="btn btn-primary">End Task</button>
+            
+                                                </div>
+                                                
+                                            </div>
+                            </div> 
+                    </tr>
+                  </table>
+            </div>
+            </div>
+            
+            <ng-template #projectcontent let-modal>
+                        <div class="modal-header">
+                          <h4 class="modal-title">Tasks</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <table class="table table-hover">
+                            <tr>
+                              <td style="border:none;">
+                                  <input placeholder="Search" name="Task" [(ngModel)] = "projectSearch" class="btn-space">
+                                  <button type="button" (click)="projectFilterItem()" class="btn btn-primary btn-space">Search</button>
+                              </td>
+                            </tr>
+                            <tr *ngFor="let pro of projectService.list1">
+                              <td (click)="populateProjectName(pro)">{{pro.ProjectName}}</td>
+                            </tr>
+                          </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                        </div>
+                      </ng-template>
+
+

@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectsComponent } from './projects/projects.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { UsersComponent } from './users/users.component';
+import { TaskListComponent } from './tasks/task-list/task-list.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,9 @@ const routes: Routes = [
   },
   { path: 'projects', component: ProjectsComponent },
   { path: 'tasks', component: TasksComponent },
-  { path: 'users', component: UsersComponent }
+  { path: 'users', component: UsersComponent },
+   { path: 'tasklist', component: TaskListComponent }
+
 ];
 
 @NgModule({

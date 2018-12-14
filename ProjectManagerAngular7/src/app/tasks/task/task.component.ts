@@ -26,10 +26,13 @@ export class TaskComponent implements OnInit {
   constructor(private parentTaskService: ParentTaskService,private projectService: ProjectService, private service: TaskService, private toastr: ToastrService,private modalService: NgbModal,private userservice: UserService) { }
 
   ngOnInit() {
-    this.resetForm();
-    this.userservice.refreshList();
-    this.parentTaskService.refreshList();
-    this.projectService.refreshList();
+    if(this.service.buttonLabelName != 'Update Task')
+    {
+      this.resetForm();      
+    }  
+      this.userservice.refreshList();
+      this.parentTaskService.refreshList();
+      this.projectService.refreshList();  
   }
  
 
@@ -37,6 +40,8 @@ export class TaskComponent implements OnInit {
     if (form != null)
       form.resetForm();
       this.setParentCheckBox = false;
+      this.service.buttonLabelName = 'Add Task';
+      this.service.isUpdate = false;
     this.service.formData = {
         Task_ID : null,
         Parent_ID :null,
@@ -44,7 +49,7 @@ export class TaskComponent implements OnInit {
         Task1 :null,
         Start_Date :null,
         End_Date :null,
-        Priority :null,
+        Priority :0,
         Status :null,
         ProjectName:null,
         ParentTaskName : null,
@@ -55,8 +60,20 @@ export class TaskComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.value.Task_ID == null)
       this.insertRecord(form);
+    else
+      this.updateRecord(form)
   }
-
+  
+  updateRecord(form: NgForm) {
+    if(this.compareTwoDates())
+    {
+      this.service.putTask(form.value).subscribe(res => {
+        this.toastr.info('Updated successfully', 'Project Manager');
+        this.resetForm(form);
+        this.service.refreshList();
+      });
+    }    
+}  
   insertRecord(form: NgForm) {
     if(this.setParentCheckBox)
     {
@@ -70,6 +87,8 @@ export class TaskComponent implements OnInit {
         this.toastr.success('Inserted successfully', 'Project Manager');
         this.resetForm(form);
         this.service.refreshList();
+        this.parentTaskService.refreshList();
+
       });
     }
     else

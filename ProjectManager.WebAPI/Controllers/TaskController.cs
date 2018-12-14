@@ -109,6 +109,7 @@ namespace ProjectManager.WebAPI.Controllers
 
                     if (taskEntity.User_ID != null)
                     {
+                        _taskServices.UpdateExistingUsersTask(id);
                         int iUserID = Convert.ToInt32(taskEntity.User_ID);
                         var user = _userServices.GetUserById(iUserID);
                         user.Task_ID = taskEntity.Task_ID;
@@ -134,8 +135,12 @@ namespace ProjectManager.WebAPI.Controllers
             {
                 if (id > 0)
                 {
-                    _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : TaskController | Method Name : DeleteTask | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
-                    return _taskServices.DeleteTask(id);
+                    var task = _taskServices.GetTaskById(id);
+                    if (task != null)
+                    {
+                        task.Status = "Completed";
+                    }
+                    return _taskServices.UpdateTask(id, task);
                 }
             }
             catch (Exception exception)

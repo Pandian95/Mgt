@@ -25,15 +25,15 @@ export class ProjectListComponent implements OnInit {
 
   populateForm(pro: Projectsearch) {
     document.getElementById('lblButtonName').innerHTML = 'Update';
-
-    if(this.service.formData.Start_Date != null)
+    if(pro.Start_Date != null)
     {
-      this.service.setCheckBoxStartEnd = true;    
+      this.service.setCheckBoxStartEnd = true;
     }
     else
     {
       this.service.setCheckBoxStartEnd = false;
     }
+
     var proj1: Project;
     proj1 = {
       Project_ID : pro.Project_ID,

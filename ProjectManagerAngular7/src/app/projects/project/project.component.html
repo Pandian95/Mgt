@@ -29,7 +29,7 @@
       </div>
       <div class="col-75" style="padding-top: 15px;">
           <input  type="range" min="0" max="30" value="0" class="slider" #Priority="ngModel" [(ngModel)]="service.formData.Priority" id="priorityInputId" oninput="priorityOutputId.value = priorityInputId.value; service.formData.Priority = priorityInputId.value" name="Priority">
-          <output name="priorityOutputName" id="priorityOutputId">0</output>
+          <output name="priorityOutputName" id="priorityOutputId">{{service.formData.Priority}}</output>
       </div>
     </div>
     <div class="row">

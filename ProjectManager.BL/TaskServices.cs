@@ -157,6 +157,11 @@ namespace ProjectManager.BL
             }
             return success;
         }
+
+        public void UpdateExistingUsersTask(int id)
+        {
+            _unitOfWork.UpdateExistingUSersTask(id);
+        }
     }
     
 }

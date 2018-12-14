@@ -79,6 +79,7 @@ warning 6002: The table/view 'ProjectManager.dbo.vw_TaskSearch' does not have a 
             <PropertyRef Name="TaskName" />
             <PropertyRef Name="Task_ID" />
             <PropertyRef Name="Start_Date" />
+            
           </Key>
           <Property Name="TaskName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Task_ID" Type="int" Nullable="false" />
@@ -89,7 +90,7 @@ warning 6002: The table/view 'ProjectManager.dbo.vw_TaskSearch' does not have a 
           <Property Name="TaskPriority" Type="nvarchar" MaxLength="20" />
           <Property Name="TaskStatus" Type="nvarchar" MaxLength="10" />
           <Property Name="ParentTask" Type="nvarchar(max)" />
-          <Property Name="MappedProject" Type="nvarchar(max)" />
+          <Property Name="MappedProject" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TaskParentID" Type="int" />
           <Property Name="TaskProjectID" Type="int" />
           <Property Name="First_Name" Type="nvarchar(max)" />
@@ -120,6 +121,9 @@ warning 6002: The table/view 'ProjectManager.dbo.vw_TaskSearch' does not have a 
           </ReferentialConstraint>
         </Association>
         <Function Name="SP_GetProjectSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_UpdateExistingUsersTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Task_ID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ProjectManagerModelStoreContainer">
           <EntitySet Name="ParentTask" EntityType="Self.ParentTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
@@ -260,6 +264,9 @@ warning 6002: The table/view 'ProjectManager.dbo.vw_TaskSearch' does not have a 
           <FunctionImport Name="SP_GetProjectSearch" ReturnType="Collection(ProjectManagerModel.SP_GetProjectSearch_Result)" />
           <EntitySet Name="vw_ProjectSearch" EntityType="ProjectManagerModel.vw_ProjectSearch" />
           <EntitySet Name="vw_TaskSearch" EntityType="ProjectManagerModel.vw_TaskSearch" />
+          <FunctionImport Name="SP_UpdateExistingUsersTask">
+            <Parameter Name="Task_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_GetProjectSearch_Result">
           <Property Type="Int32" Name="Project_ID" Nullable="false" />
@@ -315,7 +322,7 @@ warning 6002: The table/view 'ProjectManager.dbo.vw_TaskSearch' does not have a 
           <Property Name="TaskPriority" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="TaskStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="ParentTask" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MappedProject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MappedProject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TaskParentID" Type="Int32" />
           <Property Name="TaskProjectID" Type="Int32" />
           <Property Name="First_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -432,6 +439,7 @@ warning 6002: The table/view 'ProjectManager.dbo.vw_TaskSearch' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_UpdateExistingUsersTask" FunctionName="ProjectManagerModel.Store.SP_UpdateExistingUsersTask" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

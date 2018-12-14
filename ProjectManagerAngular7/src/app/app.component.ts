@@ -29,7 +29,7 @@ export class AppComponent   {
             index: 2
         }, {
             label: 'View Task',
-            link: './task_list',
+            link: './tasklist',
             index: 3
         }
     ];

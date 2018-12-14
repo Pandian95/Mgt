@@ -167,5 +167,13 @@ namespace ProjectManager.DAL.UnitOfWork
             GC.SuppressFinalize(this);
         }
         #endregion
+
+        public void UpdateExistingUSersTask(int id)
+        {
+            using (var db = new ProjectManagerEntities())
+            {
+                db.SP_UpdateExistingUsersTask(id);
+            }
+        }
     }
 }

@@ -190,17 +190,6 @@ namespace ProjectManager.DAL.GenericRepository
         {
             return DbSet.First<TEntity>(predicate);
         }
-
-        //public IEnumerable<TEntity> GetProjectSearch()
-        //{
-        //    var query = from data in Context.vw_ProjectSearch
-
-        //                orderby data.ProjectName
-
-        //                select data;
-
-        //    return query.ToList();
-        //}
         #endregion
     }
 }

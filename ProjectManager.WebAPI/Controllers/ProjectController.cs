@@ -78,6 +78,7 @@ namespace ProjectManager.WebAPI.Controllers
             try
             {
                 _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : ProjectController | Method Name : CreateProject | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
+                
                 int iProjectId = _projectServices.CreateProject(projectEntity);
 
                 var user = _userServices.GetUserById(projectEntity.Manager_ID);

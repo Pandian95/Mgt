@@ -34,5 +34,6 @@ namespace ProjectManager.DAL.UnitOfWork
             get;
         }
         void Save();
+        void UpdateExistingUSersTask(int id);
     }
 }

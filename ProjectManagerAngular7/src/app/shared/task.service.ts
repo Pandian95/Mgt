@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task.model';
 import { HttpClient } from "@angular/common/http";
-
+import { Tasksearch } from './tasksearch.model';
+import { ParentTask } from './parent-task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,10 @@ export class TaskService {
 
   formData : Task;
   list : Task[];
+  list1 : Tasksearch[];
+  list2 : ParentTask[];
+  buttonLabelName : string = 'Add Task';
+  isUpdate: boolean = false;
   readonly rootURL ="http://localhost:55542/api"
 
   constructor(private http : HttpClient) { }
@@ -21,7 +26,12 @@ export class TaskService {
 
    refreshList(){
     this.http.get(this.rootURL+'/task')
-    .toPromise().then(res => this.list = res as Task[]);
+    .toPromise().then(res => this.list1= res as Tasksearch[]);
+  }
+
+  refreshParentList(){
+    this.http.get(this.rootURL+'/parenttask')
+    .toPromise().then(res => this.list2= res as ParentTask[]);
   }
 
   putTask(formData : Task){

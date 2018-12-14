@@ -30,12 +30,13 @@ export class ProjectComponent implements OnInit {
       form.resetForm();
       
     document.getElementById('lblButtonName').innerHTML = 'Add';
+    this.service.setCheckBoxStartEnd = false;
     this.service.formData = {
       Project_ID: null,
       Project1: '',
       Start_Date: null,
       End_Date: null,
-      Priority:'0',
+      Priority:0,
       Manager:'',
       Manager_ID:null
     }

@@ -38,5 +38,14 @@ namespace ProjectManager.DAL
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetProjectSearch_Result>("SP_GetProjectSearch");
         }
+    
+        public virtual int SP_UpdateExistingUsersTask(Nullable<int> task_ID)
+        {
+            var task_IDParameter = task_ID.HasValue ?
+                new ObjectParameter("Task_ID", task_ID) :
+                new ObjectParameter("Task_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UpdateExistingUsersTask", task_IDParameter);
+        }
     }
 }

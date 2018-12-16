@@ -44,5 +44,58 @@ namespace TestHelper
             };
             return projects;
         }
+
+        public static List<User> GetAllUsers()
+        {
+            var users = new List<User>
+                {
+                new User()
+                {
+                    User_ID = 1,
+                    First_Name="Rajkumar",
+                    Last_Name = "VM",
+                    Employee_ID = 725129,
+                    Project_ID = 4,
+                    Task_ID = null
+                },
+                 new User()
+                {
+                    User_ID = 2,
+                    First_Name="Abhijith",
+                    Last_Name = "S",
+                    Employee_ID = 789345,
+                    Project_ID = 4,
+                    Task_ID = null
+                },
+                 new User()
+                {
+                    User_ID = 3,
+                    First_Name="Jagannath",
+                    Last_Name = "VM",
+                    Employee_ID = 45465,
+                    Project_ID = null,
+                    Task_ID = null
+                },
+                 new User()
+                {
+                    User_ID = 4,
+                    First_Name="Pavitha",
+                    Last_Name = "V",
+                    Employee_ID = 465456,
+                    Project_ID = null,
+                    Task_ID = null
+                },
+                 new User()
+                {
+                    User_ID = 5,
+                    First_Name="Rithvik",
+                    Last_Name = "R",
+                    Employee_ID = 34324,
+                    Project_ID = null,
+                    Task_ID = 1
+                }
+            };
+            return users;
+        }
     }
 }

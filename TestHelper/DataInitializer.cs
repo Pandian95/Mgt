@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task = ProjectManager.DAL.Task;
 
 namespace TestHelper
 {
@@ -96,6 +97,25 @@ namespace TestHelper
                 }
             };
             return users;
+        }
+
+        public static List<Task> GetAllTasks()
+        {
+            var tasks = new List<Task>
+                {
+                new Task()
+                {
+                    Task_ID =1,
+                    Parent_ID = 2,
+                    Project_ID = 2,
+                    Task1 = "DAL Layer -1",
+                    Start_Date = Convert.ToDateTime("2018-12-28"),
+                    End_Date = Convert.ToDateTime("2018-12-31"),
+                    Priority = "19",
+                    Status = null
+                }
+            };
+            return tasks;
         }
     }
 }

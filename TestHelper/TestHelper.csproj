@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AssertObjects.cs" />
     <Compile Include="DataInitializer.cs" />
+    <Compile Include="ParentTaskComparer.cs" />
     <Compile Include="ProjectComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskComparer.cs" />

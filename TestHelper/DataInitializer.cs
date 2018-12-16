@@ -117,5 +117,18 @@ namespace TestHelper
             };
             return tasks;
         }
+
+        public static List<ParentTask> GetAllParentTasks()
+        {
+            var tasks = new List<ParentTask>
+                {
+                new ParentTask()
+                {
+                    Parent_ID = 2,
+                    Parent_Task = "Web API Development"
+                }
+            };
+            return tasks;
+        }
     }
 }

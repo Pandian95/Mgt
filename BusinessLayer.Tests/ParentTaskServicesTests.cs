@@ -136,43 +136,14 @@ namespace BusinessLayer.Tests
         {
             _parentTask.Clear();
             var tasks = _parentTaskService.GetAllParentTasks();
-            Assert.Null(tasks);
+            Assert.IsEmpty(tasks);
             SetUpParentTask();
         }
 
         ///<summary>  
         /// Service should return parent task if correct id is supplied  
         ///</summary>  
-        [Test]
-        public void GetParentTaskByRightIdTest()
-        {
-            var task = _parentTaskService.GetParentTaskById(1);
-
-            if (task != null)
-            {
-                var config = new MapperConfiguration(cfg => {
-                    cfg.CreateMap<ParentTaskEntity, ParentTask>();
-                });
-                IMapper mapper = config.CreateMapper();
-                var parentTaskModel = mapper.Map<ParentTaskEntity, ParentTask>(task);
-
-                AssertObjects.PropertyValuesAreEquals(parentTaskModel,
-                    _parentTask.Find(a => a.Parent_Task.Contains("Web API Development")));
-            }
-        }
-        ///<summary>  
-        /// Service should return null  
-        ///</summary>  
-        [Test]
-        public void GetParentTaskByWrongIdTest()
-        {
-            var task = _parentTaskService.GetParentTaskById(0);
-            Assert.Null(task);
-        }
-
-        ///<summary>  
-        /// Add new user test  
-        ///</summary>  
+        
         [Test]
         public void AddNewParentTaskTest()
         {
@@ -195,39 +166,7 @@ namespace BusinessLayer.Tests
             Assert.That(maxTaskBeforeAdd + 1, Is.EqualTo(newTask.Parent_ID));
         }
 
-        ///<summary>  
-        /// Update task test  
-        ///</summary>  
-        [Test]
-        public void UpdateParentTaskTest()
-        {
-            var firstTask = _parentTask.First();
-            firstTask.Parent_Task = "Web API Development -Updated";
-            var updatedTask = new ParentTaskEntity()
-            {
-                Parent_Task = firstTask.Parent_Task,
-                Parent_ID = firstTask.Parent_ID
-            };
-            _parentTaskService.UpdateParentTask(firstTask.Parent_ID, updatedTask);
-            Assert.That(firstTask.Parent_ID, Is.EqualTo(1)); // hasn't changed  
-            Assert.That(firstTask.Parent_Task, Is.EqualTo("Web API Development -Updated")); // Task name changed  
-
-        }
-
-        ///<summary>  
-        /// Delete Task test  
-        ///</summary>  
-        [Test]
-        public void DeleteParentTaskTest()
-        {
-            int maxID = _parentTask.Max(a => a.Parent_ID); // Before removal  
-            var lastTask = _parentTask.Last();
-
-            // Remove last Task  
-            _parentTaskService.DeleteParentTask(lastTask.Parent_ID);
-            var task = _parentTaskService.GetParentTaskById(maxID - 1);
-            Assert.That(maxID, Is.GreaterThan(task.Parent_ID)); // Max id reduced by 1  
-        }
+       
         #endregion
     }
 }

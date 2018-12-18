@@ -26,13 +26,13 @@ namespace TestHelper
                     Start_Date = Convert.ToDateTime("2018-01-17"),
                     End_Date = Convert.ToDateTime("2018-01-22")
                 },
-                 new Project()
+                new Project()
                 {
-                    Project_ID = 1003,
-                    Project1 = "AFMS1",
-                Priority = "2",
-                Start_Date = Convert.ToDateTime("2018-01-17"),
-                End_Date = Convert.ToDateTime("2018-01-22")
+                    Project_ID = 3004,
+                    Project1="Project Created New ",
+                    Priority = "3",
+                    Start_Date = Convert.ToDateTime("2018-01-17"),
+                    End_Date = Convert.ToDateTime("2018-01-22")
                 }
             };
             return projects;
@@ -45,7 +45,7 @@ namespace TestHelper
                 new User()
                 {
                     User_ID = 1,
-                    First_Name="Rajkumar",
+                    First_Name="Rajj",
                     Last_Name = "VM",
                     Employee_ID = 725129,
                     Project_ID = 4,
@@ -77,15 +77,6 @@ namespace TestHelper
                     Employee_ID = 465456,
                     Project_ID = null,
                     Task_ID = null
-                },
-                 new User()
-                {
-                    User_ID = 5,
-                    First_Name="Rithvik",
-                    Last_Name = "R",
-                    Employee_ID = 34324,
-                    Project_ID = null,
-                    Task_ID = 1
                 }
             };
             return users;
@@ -97,13 +88,24 @@ namespace TestHelper
                 {
                 new Task()
                 {
-                    Task_ID =1,
+                    Task_ID =2,
                     Parent_ID = 2,
                     Project_ID = 2,
-                    Task1 = "DAL Layer -1",
+                    Task1 = "DAL Layer -2",
                     Start_Date = Convert.ToDateTime("2018-12-28"),
                     End_Date = Convert.ToDateTime("2018-12-31"),
-                    Priority = "19",
+                    Priority = "20",
+                    Status = null
+                },
+                new Task()
+                {
+                    Task_ID =1004,
+                    Parent_ID = 2,
+                    Project_ID = 2,
+                    Task1 = "DAL Layer -3",
+                    Start_Date = Convert.ToDateTime("2018-12-28"),
+                    End_Date = Convert.ToDateTime("2018-12-31"),
+                    Priority = "20",
                     Status = null
                 }
             };
@@ -118,6 +120,16 @@ namespace TestHelper
                 {
                     Parent_ID = 2,
                     Parent_Task = "Web API Development"
+                },
+                new ParentTask()
+                {
+                    Parent_ID = 3,
+                    Parent_Task = "Web API Development - 1"
+                },
+                new ParentTask()
+                {
+                    Parent_ID = 4,
+                    Parent_Task = "Web API Development - 1"
                 }
             };
             return tasks;

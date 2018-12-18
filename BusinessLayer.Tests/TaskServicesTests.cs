@@ -143,7 +143,7 @@ namespace BusinessLayer.Tests
         {
             _task.Clear();
             var tasks = _taskService.GetAllTasks();
-            Assert.Null(tasks);
+            Assert.IsEmpty(tasks);
             SetUpTasks();
         }
 
@@ -234,7 +234,7 @@ namespace BusinessLayer.Tests
                 Status = firstTask.Status
             };
             _taskService.UpdateTask(firstTask.Task_ID, updatedTask);
-            Assert.That(firstTask.Task_ID, Is.EqualTo(1)); // hasn't changed  
+            Assert.That(firstTask.Task_ID, Is.EqualTo(2)); // hasn't changed  
             Assert.That(firstTask.Task1, Is.EqualTo("DAL Layer -Updated")); // Task name changed  
 
         }
@@ -251,7 +251,8 @@ namespace BusinessLayer.Tests
             // Remove last Task  
             _taskService.DeleteTask(lastTask.Task_ID);
             var task = _taskService.GetTaskById(maxID - 1);
-            Assert.That(maxID, Is.GreaterThan(task.Task_ID)); // Max id reduced by 1  
+            if(task != null)
+                Assert.That(maxID, Is.GreaterThan(task.Task_ID)); // Max id reduced by 1  
         }
         #endregion
     }

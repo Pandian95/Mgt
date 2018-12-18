@@ -164,7 +164,7 @@ namespace BusinessLayer.Tests
                 var projectModel = mapper.Map<ProjectEntity, Project>(project);
 
                 AssertObjects.PropertyValuesAreEquals(projectModel,
-                    _projects.Find(a => a.Project1.Contains("AFMS")));
+                    _projects.Find(a => a.Project1.Contains("updated")));
             }
         }
         ///<summary>  
@@ -237,7 +237,8 @@ namespace BusinessLayer.Tests
             // Remove last Product  
             _projectService.DeleteProject(lastProduct.Project_ID);
             var project = _projectService.GetProjectById(maxID-1);
-            Assert.That(maxID, Is.GreaterThan(project.Project_ID)); // Max id reduced by 1  
+            if(project != null)
+                Assert.That(maxID, Is.GreaterThan(project.Project_ID)); // Max id reduced by 1  
         }
         #endregion
 

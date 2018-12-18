@@ -136,20 +136,20 @@ namespace ProjectManager.WebAPITests
             };
             taskController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
             _response = taskController.Get();
-            var responseResultSearch = JsonConvert.DeserializeObject<List<Task>>(_response.Content.ReadAsStringAsync().Result);
+            var responseResultSearch = JsonConvert.DeserializeObject<List<vw_TaskSearch>>(_response.Content.ReadAsStringAsync().Result);
             var taskList =
                 responseResultSearch.Select(
                     taskEntity =>
                     new Task
                     {
                         Task_ID = taskEntity.Task_ID,
-                        Parent_ID = taskEntity.Parent_ID,
-                        Project_ID = taskEntity.Project_ID,
-                        Task1 = taskEntity.Task1,
+                        Parent_ID = taskEntity.TaskParentID,
+                        Project_ID = taskEntity.TaskProjectID,
+                        Task1 = taskEntity.TaskName,
                         Start_Date = taskEntity.Start_Date,
                         End_Date = taskEntity.End_Date,
-                        Priority = taskEntity.Priority,
-                        Status = taskEntity.Status
+                        Priority = taskEntity.TaskPriority,
+                        Status = taskEntity.TaskStatus
                     }).ToList();
             Assert.AreEqual(_response.StatusCode, HttpStatusCode.OK);
             Assert.AreEqual(taskList.Any(), true);
@@ -172,41 +172,7 @@ namespace ProjectManager.WebAPITests
             _response = taskController.Get(2);
             var responseResult = JsonConvert.DeserializeObject<Task>(_response.Content.ReadAsStringAsync().Result);
             Assert.AreEqual(_response.StatusCode, HttpStatusCode.OK);
-            AssertObjects.PropertyValuesAreEquals(responseResult, _tasks.Find(a => a.Task1.Contains("user updated")));
-        }
-
-        [Test]
-        public void GetTaskByWrongIdTest()
-        {
-            var taskController = new TaskController()
-            {
-                Request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri(ServiceBaseURL + "get/15")
-                }
-            };
-            taskController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-            var ex = Assert.Throws<ApiDataException>(() => taskController.Get(10));
-            Assert.That(ex.ErrorCode, Is.EqualTo(1001));
-            Assert.That(ex.ErrorDescription, Is.EqualTo("No task found for this id."));
-        }
-        [Test]
-        public void GetTaskByInvalidIdTest()
-        {
-            var taskController = new TaskController()
-            {
-                Request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri(ServiceBaseURL + "get/-1")
-                }
-            };
-            taskController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-
-            var ex = Assert.Throws<ApiException>(() => taskController.Get(-1));
-            Assert.That(ex.ErrorCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
-            Assert.That(ex.ErrorDescription, Is.EqualTo("Bad Request..."));
+            AssertObjects.PropertyValuesAreEquals(responseResult, _tasks.Find(a => a.Task1.Contains("DAL Layer -2")));
         }
 
         [Test]
@@ -227,7 +193,7 @@ namespace ProjectManager.WebAPITests
                 Task_ID = 2,
                 Parent_ID = 2,
                 Project_ID = 2,
-                Task1 = "DAL Layer -2",
+                Task1 = "DAL Layer -3",
                 Start_Date = Convert.ToDateTime("2018-12-28"),
                 End_Date = Convert.ToDateTime("2018-12-31"),
                 Priority = "20",
@@ -236,20 +202,20 @@ namespace ProjectManager.WebAPITests
             taskController.Post(newTask);
 
             _response = taskController.Get();
-            var responseResultSearch = JsonConvert.DeserializeObject<List<Task>>(_response.Content.ReadAsStringAsync().Result);
+            var responseResultSearch = JsonConvert.DeserializeObject<List<vw_TaskSearch>>(_response.Content.ReadAsStringAsync().Result);
             var taskList =
                 responseResultSearch.Select(
                     taskEntity =>
                     new Task
                     {
                         Task_ID = taskEntity.Task_ID,
-                        Parent_ID = taskEntity.Parent_ID,
-                        Project_ID = taskEntity.Project_ID,
-                        Task1 = taskEntity.Task1,
+                        Parent_ID = taskEntity.TaskParentID,
+                        Project_ID = taskEntity.TaskProjectID,
+                        Task1 = taskEntity.TaskName,
                         Start_Date = taskEntity.Start_Date,
                         End_Date = taskEntity.End_Date,
-                        Priority = taskEntity.Priority,
-                        Status = taskEntity.Status
+                        Priority = taskEntity.TaskPriority,
+                        Status = taskEntity.TaskStatus
                     }).ToList();
             var addedtask = new Task()
             {
@@ -313,23 +279,23 @@ namespace ProjectManager.WebAPITests
             taskController.Delete(lastTask.Task_ID);
 
             _response = taskController.Get();
-            var responseResultSearch = JsonConvert.DeserializeObject<List<Task>>(_response.Content.ReadAsStringAsync().Result);
+            var responseResultSearch = JsonConvert.DeserializeObject<List<vw_TaskSearch>>(_response.Content.ReadAsStringAsync().Result);
             var taskList =
                 responseResultSearch.Select(
                     taskEntity =>
                     new Task
                     {
                         Task_ID = taskEntity.Task_ID,
-                        Parent_ID = taskEntity.Parent_ID,
-                        Project_ID = taskEntity.Project_ID,
-                        Task1 = taskEntity.Task1,
+                        Parent_ID = taskEntity.TaskParentID,
+                        Project_ID = taskEntity.TaskProjectID,
+                        Task1 = taskEntity.TaskName,
                         Start_Date = taskEntity.Start_Date,
                         End_Date = taskEntity.End_Date,
-                        Priority = taskEntity.Priority,
-                        Status = taskEntity.Status
+                        Priority = taskEntity.TaskPriority,
+                        Status = taskEntity.TaskStatus
                     }).ToList();
 
-            Assert.That(maxID - 1, Is.GreaterThan(taskList.Max(a => a.Task_ID))); // Max id reduced by 1
+            Assert.That(maxID , Is.GreaterThan(taskList.Max(a => a.Task_ID))); // Max id reduced by 1
         }
 
         #region Integration Test
@@ -346,7 +312,7 @@ namespace ProjectManager.WebAPITests
             #endregion
             _response = client.GetAsync(ServiceBaseURL).Result;
             var responseResult =
-                JsonConvert.DeserializeObject<List<Task>>(_response.Content.ReadAsStringAsync().Result);
+                JsonConvert.DeserializeObject<List<vw_TaskSearch>>(_response.Content.ReadAsStringAsync().Result);
             Assert.AreEqual(_response.StatusCode, HttpStatusCode.OK);
             Assert.AreEqual(responseResult.Any(), true);
         }

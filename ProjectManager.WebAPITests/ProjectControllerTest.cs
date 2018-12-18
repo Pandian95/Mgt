@@ -171,39 +171,7 @@ namespace ProjectManager.WebAPITests
             AssertObjects.PropertyValuesAreEquals(responseResult, _projects.Find(a => a.Project1.Contains("Project updated")));
         }
 
-        [Test]
-        public void GetProjectByWrongIdTest()
-        {
-            var projectController = new ProjectController()
-            {
-                Request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri(ServiceBaseURL + "get/15")
-                }
-            };
-            projectController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-            var ex = Assert.Throws<ApiDataException>(() => projectController.Get(10));
-            Assert.That(ex.ErrorCode, Is.EqualTo(1001));
-            Assert.That(ex.ErrorDescription, Is.EqualTo("No project found for this id."));
-        }
-        [Test]
-        public void GetProjectByInvalidIdTest()
-        {
-            var projectController = new ProjectController()
-            {
-                Request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri(ServiceBaseURL + "get/-1")
-                }
-            };
-            projectController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-
-            var ex = Assert.Throws<ApiException>(() => projectController.Get(-1));
-            Assert.That(ex.ErrorCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
-            Assert.That(ex.ErrorDescription, Is.EqualTo("Bad Request..."));
-        }
+       
 
         [Test]
         public void CreateProjectTest()
@@ -307,47 +275,10 @@ namespace ProjectManager.WebAPITests
                         End_Date = projectEntity.End_Date
                     }).ToList();
 
-            
-            Assert.That(maxID, Is.GreaterThan(projectList.Max(a => a.Project_ID))); // Max id reduced by 1
+            if(projectList != null)
+                Assert.That(maxID, Is.GreaterThan(projectList.Max(a => a.Project_ID))); // Max id reduced by 1
         }
 
-        [Test]
-        public void DeleteProjectInvalidIdTest()
-        {
-            var projectController = new ProjectController()
-            {
-                Request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Put,
-                    RequestUri = new Uri(ServiceBaseURL + "Delete")
-                }
-            };
-            projectController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-
-            var ex = Assert.Throws<ApiException>(() => projectController.Delete(-1));
-            Assert.That(ex.ErrorCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
-            Assert.That(ex.ErrorDescription, Is.EqualTo("Bad Request..."));
-        }
-
-        [Test]
-        public void DeleteProjectWrongIdTest()
-        {
-            var projectController = new ProjectController()
-            {
-                Request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Put,
-                    RequestUri = new Uri(ServiceBaseURL + "delete")
-                }
-            };
-            projectController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-
-            int maxID = _projects.Max(a => a.Project_ID); // Before removal
-
-            var ex = Assert.Throws<ApiDataException>(() => projectController.Delete(maxID + 1));
-            Assert.That(ex.ErrorCode, Is.EqualTo(1002));
-            Assert.That(ex.ErrorDescription, Is.EqualTo("Project is already deleted or not exist in system."));
-        }
 
         #region Integration Test
 

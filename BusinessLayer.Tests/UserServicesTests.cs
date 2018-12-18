@@ -140,7 +140,7 @@ namespace BusinessLayer.Tests
         {
             _user.Clear();
             var users = _userService.GetAllUsers();
-            Assert.Null(users);
+            Assert.IsEmpty(users);
             SetUpUsers();
         }
 
@@ -161,7 +161,7 @@ namespace BusinessLayer.Tests
                 var userModel = mapper.Map<UserEntity, User>(user);
 
                 AssertObjects.PropertyValuesAreEquals(userModel,
-                    _user.Find(a => a.First_Name.Contains("Rajkumar")));
+                    _user.Find(a => a.First_Name.Contains("Rajj")));
             }
         }
         ///<summary>  
@@ -214,7 +214,7 @@ namespace BusinessLayer.Tests
         public void UpdateUserTest()
         {
             var firstUser = _user.First();
-            firstUser.First_Name = "Rajj";
+            firstUser.First_Name = "Raj kumar";
             var updatedUser = new UserEntity()
             {
                 User_ID= firstUser.User_ID,
@@ -226,7 +226,7 @@ namespace BusinessLayer.Tests
             };
             _userService.UpdateUser(firstUser.User_ID, updatedUser);
             Assert.That(firstUser.User_ID, Is.EqualTo(1)); // hasn't changed  
-            Assert.That(firstUser.First_Name, Is.EqualTo("Rajj")); // First name changed  
+            Assert.That(firstUser.First_Name, Is.EqualTo("Raj kumar")); // First name changed  
 
         }
 

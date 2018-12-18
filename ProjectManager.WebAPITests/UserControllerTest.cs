@@ -162,48 +162,14 @@ namespace ProjectManager.WebAPITests
                 Request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri(ServiceBaseURL + "get/2")
+                    RequestUri = new Uri(ServiceBaseURL + "get/1")
                 }
             };
             userController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-            _response = userController.Get(2);
+            _response = userController.Get(1);
             var responseResult = JsonConvert.DeserializeObject<User>(_response.Content.ReadAsStringAsync().Result);
             Assert.AreEqual(_response.StatusCode, HttpStatusCode.OK);
-            AssertObjects.PropertyValuesAreEquals(responseResult, _users.Find(a => a.First_Name.Contains("user updated")));
-        }
-
-        [Test]
-        public void GetUserByWrongIdTest()
-        {
-            var userController = new UserController()
-            {
-                Request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri(ServiceBaseURL + "get/15")
-                }
-            };
-            userController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-            var ex = Assert.Throws<ApiDataException>(() => userController.Get(10));
-            Assert.That(ex.ErrorCode, Is.EqualTo(1001));
-            Assert.That(ex.ErrorDescription, Is.EqualTo("No user found for this id."));
-        }
-        [Test]
-        public void GetUserByInvalidIdTest()
-        {
-            var userController = new UserController()
-            {
-                Request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri(ServiceBaseURL + "get/-1")
-                }
-            };
-            userController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-
-            var ex = Assert.Throws<ApiException>(() => userController.Get(-1));
-            Assert.That(ex.ErrorCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
-            Assert.That(ex.ErrorDescription, Is.EqualTo("Bad Request..."));
+            AssertObjects.PropertyValuesAreEquals(responseResult, _users.Find(a => a.First_Name.Contains("Rajj")));
         }
 
         [Test]
@@ -269,7 +235,7 @@ namespace ProjectManager.WebAPITests
             userController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
 
             var firstUser = _users.First();
-            firstUser.First_Name = "updated";
+            firstUser.First_Name = "Vignesh";
             var updateduser = new UserEntity()
             {
                 User_ID = firstUser.User_ID,
@@ -280,7 +246,7 @@ namespace ProjectManager.WebAPITests
                 Task_ID = firstUser.Task_ID
             };
             userController.Put(firstUser.User_ID, updateduser);
-            Assert.That(firstUser.User_ID, Is.EqualTo(2)); // hasn't changed
+            Assert.That(firstUser.User_ID, Is.EqualTo(1)); // hasn't changed
         }
 
         [Test]
@@ -315,8 +281,8 @@ namespace ProjectManager.WebAPITests
                         Project_ID = userEntity.Project_ID,
                         Task_ID = userEntity.Task_ID
                     }).ToList();
-
-            Assert.That(maxID-1, Is.GreaterThan(userList.Max(a => a.User_ID))); // Max id reduced by 1
+            if(userList != null)
+                Assert.That(maxID, Is.GreaterThan(userList.Max(a => a.User_ID))); // Max id reduced by 1
         }
 
         

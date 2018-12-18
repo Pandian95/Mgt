@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Hosting;
 using TestHelper;
@@ -348,7 +349,26 @@ namespace ProjectManager.WebAPITests
             Assert.That(ex.ErrorDescription, Is.EqualTo("Project is already deleted or not exist in system."));
         }
 
-    }
+        #region Integration Test
 
-    
+        /// <summary>
+        /// Get all products test
+        /// </summary>
+        [Test]
+        public void GetAllProjectsIntegrationTest()
+        {
+            #region To be written inside Setup method specifically for integration tests
+            var client = new HttpClient { BaseAddress = new Uri(ServiceBaseURL) };
+            MediaTypeFormatter jsonFormatter = new JsonMediaTypeFormatter();
+            #endregion
+            _response = client.GetAsync(ServiceBaseURL).Result;
+            var responseResult =
+                JsonConvert.DeserializeObject<List<ProjectEntity>>(_response.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(_response.StatusCode, HttpStatusCode.OK);
+            Assert.AreEqual(responseResult.Any(), true);
+        }
+
+        #endregion
+
+    }
 }

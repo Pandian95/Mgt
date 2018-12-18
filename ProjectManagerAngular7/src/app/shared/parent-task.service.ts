@@ -8,7 +8,7 @@ import { HttpClient } from "@angular/common/http";
 export class ParentTaskService {
   formData : ParentTask;
   list : ParentTask[];
-  readonly rootURL ="http://localhost:55542/api"
+  readonly rootURL ="http://172.18.4.244/api"
   constructor(private http : HttpClient) { }
 
   postParentTask(formData : ParentTask){

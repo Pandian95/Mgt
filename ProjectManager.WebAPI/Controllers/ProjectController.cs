@@ -49,6 +49,7 @@ namespace ProjectManager.WebAPI.Controllers
             catch (Exception exception)
             {
                 _loggerServices.LogException(exception, LoggerConstants.Informations.WebAPIInfo);
+                throw exception;
             }
             return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Projects not found");
         }
@@ -58,12 +59,18 @@ namespace ProjectManager.WebAPI.Controllers
         {
             try
             {
-                _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : ProjectController | Method Name : GetProjectById | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
-                var project = _projectServices.GetProjectById(id);
-                if (project != null)
+                if(id > 0)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, project);
+                    _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : ProjectController | Method Name : GetProjectById | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
+                    var project = _projectServices.GetProjectById(id);
+                    if (project != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, project);
+                    }
+                    throw new ApiDataException(1001, "No project found for this id.", HttpStatusCode.NotFound);
                 }
+                else
+                    throw new ApiException() { ErrorCode = (int)HttpStatusCode.BadRequest, ErrorDescription = "Bad Request..." };                
             }
             catch (Exception exception)
             {
@@ -132,8 +139,16 @@ namespace ProjectManager.WebAPI.Controllers
                 if (id > 0)
                 {
                     _loggerServices.LogInfo("InfoCode: API Info | Message :" + "File Name : ProjectController | Method Name : DeleteProject | Description : Method Begin", LoggerConstants.Informations.WebAPIInfo);
-                    return _projectServices.DeleteProject(id);
+                    var isSuccess = _projectServices.DeleteProject(id);
+
+                    if (isSuccess)
+                    {
+                        return true;
+                    }
+                    throw new ApiDataException(1002, "Project is already deleted or not exist in system.", HttpStatusCode.NoContent);
                 }
+                else
+                    throw new ApiException() { ErrorCode = (int)HttpStatusCode.BadRequest, ErrorDescription = "Bad Request..." };
             }
             catch (Exception exception)
             {

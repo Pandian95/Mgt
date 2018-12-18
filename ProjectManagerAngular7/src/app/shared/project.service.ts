@@ -11,7 +11,7 @@ export class ProjectService {
   formData : Project;
   list : Project[];
   list1 : Projectsearch[];
-  readonly rootURL ="http://localhost:55542/api";
+  readonly rootURL ="http://172.18.4.244/api";
   setCheckBoxStartEnd = false;
   
   constructor(private http : HttpClient) { }

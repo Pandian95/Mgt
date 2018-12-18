@@ -21,7 +21,7 @@ namespace TestHelper
                 new Project()
                 {
                     Project_ID = 2,
-                    Project1="AFMS",
+                    Project1="Project updated",
                     Priority = "3",
                     Start_Date = Convert.ToDateTime("2018-01-17"),
                     End_Date = Convert.ToDateTime("2018-01-22")
@@ -29,14 +29,6 @@ namespace TestHelper
                  new Project()
                 {
                     Project_ID = 1003,
-                    Project1 = "AFMS1",
-                Priority = "2",
-                Start_Date = Convert.ToDateTime("2018-01-17"),
-                End_Date = Convert.ToDateTime("2018-01-22")
-                },
-                new Project()
-                {
-                    Project_ID = 1004,
                     Project1 = "AFMS1",
                 Priority = "2",
                 Start_Date = Convert.ToDateTime("2018-01-17"),

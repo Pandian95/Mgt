@@ -164,7 +164,7 @@ namespace BusinessLayer.Tests
         /// Service should return null  
         ///</summary>  
         [Test]
-        public void GetUserByWrongIdTest()
+        public void GetParentTaskByWrongIdTest()
         {
             var task = _parentTaskService.GetParentTaskById(0);
             Assert.Null(task);
@@ -174,7 +174,7 @@ namespace BusinessLayer.Tests
         /// Add new user test  
         ///</summary>  
         [Test]
-        public void AddNewUserTest()
+        public void AddNewParentTaskTest()
         {
             var newTask = new ParentTaskEntity()
             {

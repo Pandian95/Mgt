@@ -62,6 +62,9 @@ namespace ProjectManager.WebAPI.Controllers
                 var user = _userServices.GetUserById(id);
                 if (user != null)
                     return Request.CreateResponse(HttpStatusCode.OK, user);
+
+                throw new ApiDataException(1001, "No user found for this id.", HttpStatusCode.NotFound);
+
             }
             catch (Exception exception)
             {

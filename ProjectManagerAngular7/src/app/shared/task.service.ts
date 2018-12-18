@@ -15,7 +15,7 @@ export class TaskService {
   list2 : ParentTask[];
   buttonLabelName : string = 'Add Task';
   isUpdate: boolean = false;
-  readonly rootURL ="http://172.18.4.244/api"
+  readonly rootURL ="http://localhost:55542/api"
 
   constructor(private http : HttpClient) { }
 

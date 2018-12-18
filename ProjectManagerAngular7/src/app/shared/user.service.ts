@@ -8,7 +8,7 @@ import { HttpClient } from "@angular/common/http";
 export class UserService {
   formData : User;
   list : User[];
-  readonly rootURL ="http://172.18.4.244/api"
+  readonly rootURL ="http://localhost:55542/api"
 
   constructor(private http : HttpClient) { }
 

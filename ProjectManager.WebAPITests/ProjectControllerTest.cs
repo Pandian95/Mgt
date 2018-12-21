@@ -294,7 +294,7 @@ namespace ProjectManager.WebAPITests
             #endregion
             _response = client.GetAsync(ServiceBaseURL).Result;
             var responseResult =
-                JsonConvert.DeserializeObject<List<ProjectEntity>>(_response.Content.ReadAsStringAsync().Result);
+                JsonConvert.DeserializeObject<List<vw_ProjectSearchEntity>>(_response.Content.ReadAsStringAsync().Result);
             Assert.AreEqual(_response.StatusCode, HttpStatusCode.OK);
             Assert.AreEqual(responseResult.Any(), true);
         }
